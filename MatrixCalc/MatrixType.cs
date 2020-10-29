@@ -16,8 +16,12 @@ namespace MatrixCalc
         /// </summary>
         Eye,
         /// <summary>
-        /// Матрица со случайными числами
+        /// Матрица со случайными вещественными числами
         /// </summary>
-        Random
+        Random,
+        /// <summary>
+        /// Матрица со случайными целыми числами
+        /// </summary>
+        RandomInt
     }
 }

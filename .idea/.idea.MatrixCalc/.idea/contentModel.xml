@@ -6,8 +6,11 @@
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="MatrixCalc" t="IncludeRecursive">
         <e p="Handler.cs" t="Include" />
+        <e p="InvalidMatrixSizeException.cs" t="Include" />
         <e p="Matrix.cs" t="Include" />
         <e p="MatrixCalc.csproj" t="IncludeRecursive" />
+        <e p="MatrixProductionException.cs" t="Include" />
+        <e p="MatrixSummationException.cs" t="Include" />
         <e p="MatrixType.cs" t="Include" />
         <e p="NonSquareMatrixException.cs" t="Include" />
         <e p="Program.cs" t="Include" />
