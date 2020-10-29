@@ -14,14 +14,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98fec087-819a-4a73-978f-1946680e8d44" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/MatrixCalc/InvalidMatrixSizeException.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MatrixCalc/MatrixProductionException.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MatrixCalc/MatrixSummationException.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.MatrixCalc/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MatrixCalc/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MatrixCalc/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MatrixCalc/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MatrixCalc/Matrix.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Matrix.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MatrixCalc/MatrixType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/MatrixType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MatrixCalc/NonSquareMatrixException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/NonSquareMatrixException.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MatrixCalc/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,9 +34,9 @@
         <option value="$PROJECT_DIR$/MatrixCalc/NonSquareMatrixException.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/InvalidMatrixSizeException.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/MatrixSummationException.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/MatrixProductionException.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/Program.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/Matrix.cs" />
-        <option value="$PROJECT_DIR$/MatrixCalc/MatrixProductionException.cs" />
       </list>
     </option>
   </component>
@@ -95,7 +89,7 @@
       <option name="presentableId" value="Default" />
       <updated>1603966198538</updated>
       <workItem from="1603966202723" duration="4238000" />
-      <workItem from="1604008932680" duration="2476000" />
+      <workItem from="1604008932680" duration="4234000" />
     </task>
     <servers />
   </component>
@@ -120,22 +114,22 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1864" height="272" key="GridCell.Tab.0.bottom" timestamp="1604011138376">
+    <state width="1864" height="272" key="GridCell.Tab.0.bottom" timestamp="1604012750300">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1864" height="272" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1604011138376" />
-    <state width="1864" height="272" key="GridCell.Tab.0.center" timestamp="1604011138375">
+    <state width="1864" height="272" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1604012750300" />
+    <state width="1864" height="272" key="GridCell.Tab.0.center" timestamp="1604012750297">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1864" height="272" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1604011138375" />
-    <state width="1864" height="272" key="GridCell.Tab.0.left" timestamp="1604011138375">
+    <state width="1864" height="272" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1604012750297" />
+    <state width="1864" height="272" key="GridCell.Tab.0.left" timestamp="1604012750296">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1864" height="272" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1604011138375" />
-    <state width="1864" height="272" key="GridCell.Tab.0.right" timestamp="1604011138375">
+    <state width="1864" height="272" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1604012750296" />
+    <state width="1864" height="272" key="GridCell.Tab.0.right" timestamp="1604012750299">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1864" height="272" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1604011138375" />
+    <state width="1864" height="272" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1604012750299" />
     <state width="1864" height="369" key="GridCell.Tab.1.bottom" timestamp="1604010482518">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

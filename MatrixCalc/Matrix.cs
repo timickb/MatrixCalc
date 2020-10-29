@@ -29,31 +29,33 @@ namespace MatrixCalc
          (обработка исключительной ситуации происходит в конструкторе). */
         private void FillAsEye()
         {
-            if (RowsAmount == ColsAmount)
+            if (RowsAmount != ColsAmount)
             {
-                for (int i = 0; i < RowsAmount; i++)
+                return;
+            }
+
+            for (var i = 0; i < RowsAmount; i++)
+            {
+                for (var j = 0; j < ColsAmount; j++)
                 {
-                    for (int j = 0; j < ColsAmount; j++)
+                    if (i == j)
                     {
-                        if (i == j)
-                        {
-                            _values[i, j] = 1;
-                        }
-                        else
-                        {
-                            _values[i, j] = 0;
-                        }
+                        _values[i, j] = 1;
+                    }
+                    else
+                    {
+                        _values[i, j] = 0;
                     }
                 }
             }
         }
 
-        // Кладет во все ячейки матрицы число value
+        // Кладет во все ячейки матрицы число value.
         private void FillWithValue(double value)
         {
-            for (int i = 0; i < RowsAmount; i++)
+            for (var i = 0; i < RowsAmount; i++)
             {
-                for (int j = 0; j < ColsAmount; j++)
+                for (var j = 0; j < ColsAmount; j++)
                 {
                     _values[i, j] = value;
                 }
@@ -62,10 +64,10 @@ namespace MatrixCalc
 
         private void FillWithRandomValues()
         {
-            Random r = new Random();
-            for (int i = 0; i < RowsAmount; i++)
+            var r = new Random();
+            for (var i = 0; i < RowsAmount; i++)
             {
-                for (int j = 0; j < ColsAmount; j++)
+                for (var j = 0; j < ColsAmount; j++)
                 {
                     _values[i, j] = r.NextDouble() * (UpperRandomBound - LowerRandomBound) + LowerRandomBound;
                 }
@@ -74,10 +76,10 @@ namespace MatrixCalc
 
         private void FillWithRandomIntValues()
         {
-            Random r = new Random();
-            for (int i = 0; i < RowsAmount; i++)
+            var r = new Random();
+            for (var i = 0; i < RowsAmount; i++)
             {
-                for (int j = 0; j < ColsAmount; j++)
+                for (var j = 0; j < ColsAmount; j++)
                 {
                     _values[i, j] = r.Next((int) LowerRandomBound, (int) UpperRandomBound);
                 }
@@ -85,10 +87,12 @@ namespace MatrixCalc
         }
 
         /// <summary>
-        /// Создает нулевую матрицу
+        /// Создает нулевую матрицу.
         /// </summary>
         /// <param name="m">количество строк</param>
         /// <param name="n">количество столбцов</param>
+        /// <exception cref="InvalidMatrixSizeException">Исключение выбрасывается, когда
+        /// число строк или число столбцов матрицы не является положительным числом.</exception>
         public Matrix(int m, int n)
         {
             if (m <= 0 || n <= 0)
@@ -108,6 +112,10 @@ namespace MatrixCalc
         /// <param name="m">количество строк</param>
         /// <param name="n">количество столбцов</param>
         /// <param name="type">тип матрицы</param>
+        /// <exception cref="InvalidMatrixSizeException">Исключение выбрасывается, когда
+        /// число строк или число столбцов матрицы не является положительным числом.</exception>
+        /// <exception cref="NonSquareMatrixException">Исключение выбрасывается, когда матрица
+        /// не является квадратной, а запрашиваемый тип требует, чтобы она ей являлась.</exception>
         public Matrix(int m, int n, MatrixType type)
         {
             if (m <= 0 || n <= 0)
@@ -146,11 +154,13 @@ namespace MatrixCalc
         }
 
         /// <summary>
-        /// Создает матрицу, в каждую ячейку которой кладет число value
+        /// Создает матрицу, в каждую ячейку которой кладет число value.
         /// </summary>
         /// <param name="m">количество строк</param>
         /// <param name="n">количество столбцов</param>
         /// <param name="value">значение в каждой ячейке</param>
+        /// <exception cref="InvalidMatrixSizeException">Исключение выбрасывается, когда
+        /// число строк или число столбцов матрицы не является положительным числом.</exception>
         public Matrix(int m, int n, int value)
         {
             if (m <= 0 || n <= 0)
@@ -162,11 +172,14 @@ namespace MatrixCalc
             FillWithValue(value);
         }
 
+        /// <summary>
+        /// Красивенько печатает матрицу в консоль.
+        /// </summary>
         public void Display()
         {
-            for (int i = 0; i < RowsAmount; i++)
+            for (var i = 0; i < RowsAmount; i++)
             {
-                for (int j = 0; j < ColsAmount; j++)
+                for (var j = 0; j < ColsAmount; j++)
                 {
                     Console.Write(_values[i, j] + " ");
                 }
@@ -175,6 +188,14 @@ namespace MatrixCalc
             }
         }
 
+        /// <summary>
+        /// Изменить значение в ячейке с индексом (i, j).
+        /// </summary>
+        /// <param name="i">номер строки</param>
+        /// <param name="j">номер столбца</param>
+        /// <param name="value">новое значение</param>
+        /// <exception cref="IndexOutOfRangeException">Исключение выбрасывается, когда
+        /// в матрице не существует элемента с индексом (i, j).</exception>
         public void SetValueAt(int i, int j, double value)
         {
             try
@@ -187,6 +208,14 @@ namespace MatrixCalc
             }
         }
 
+        /// <summary>
+        /// Получить значение из ячейки с индексом (i, j).
+        /// </summary>
+        /// <param name="i">номер строки</param>
+        /// <param name="j">номер столбца</param>
+        /// <returns>значение элемента с индексом (i, j)</returns>
+        /// <exception cref="IndexOutOfRangeException">Исключение выбрасывается, когда
+        /// в матрице не существует элемента с индексом (i, j).</exception>
         public double GetValueAt(int i, int j)
         {
             try
@@ -199,6 +228,11 @@ namespace MatrixCalc
             }
         }
 
+        /// <summary>
+        /// Возвращает вещественное число - след матрицы.
+        /// </summary>
+        /// <exception cref="NonSquareMatrixException">Исключение выбрасывается,
+        /// когда матрица не является квадратной.</exception>
         public double Trace
         {
             get
@@ -209,7 +243,7 @@ namespace MatrixCalc
                 }
 
                 double trace = 0;
-                for (int i = 0; i < RowsAmount; i++)
+                for (var i = 0; i < RowsAmount; i++)
                 {
                     trace += _values[i, i];
                 }
@@ -218,14 +252,18 @@ namespace MatrixCalc
             }
         }
 
+        /// <summary>
+        /// Возвращает транспонированную по отношению к данной матрицу.
+        /// </summary>
+        /// <returns>транспонированная матрица</returns>
         public Matrix GetTransposedMatrix()
         {
-            int m = ColsAmount;
-            int n = RowsAmount;
-            Matrix transposed = new Matrix(m, n);
-            for (int i = 0; i < m; i++)
+            var m = ColsAmount;
+            var n = RowsAmount;
+            var transposed = new Matrix(m, n);
+            for (var i = 0; i < m; i++)
             {
-                for (int j = 0; j < n; j++)
+                for (var j = 0; j < n; j++)
                 {
                     transposed.SetValueAt(i, j, _values[j, i]);
                 }
@@ -244,21 +282,21 @@ namespace MatrixCalc
         /// размеры матриц m1 и m2 не совпадают.</exception>
         public static Matrix operator +(Matrix m1, Matrix m2)
         {
-            if (m1.ColsAmount == m2.ColsAmount && m1.RowsAmount == m2.RowsAmount)
+            if (m1.ColsAmount != m2.ColsAmount || m1.RowsAmount != m2.RowsAmount)
             {
-                Matrix sum = new Matrix(m1.RowsAmount, m1.ColsAmount);
-                for (int i = 0; i < m1.RowsAmount; i++)
-                {
-                    for (int j = 0; j < m1.ColsAmount; j++)
-                    {
-                        sum.SetValueAt(i, j, m1.GetValueAt(i, j) + m2.GetValueAt(i, j));
-                    }
-                }
-
-                return sum;
+                throw new MatrixSummationException();
             }
 
-            throw new MatrixSummationException();
+            var sum = new Matrix(m1.RowsAmount, m1.ColsAmount);
+            for (var i = 0; i < m1.RowsAmount; i++)
+            {
+                for (var j = 0; j < m1.ColsAmount; j++)
+                {
+                    sum.SetValueAt(i, j, m1.GetValueAt(i, j) + m2.GetValueAt(i, j));
+                }
+            }
+
+            return sum;
         }
 
         /// <summary>
@@ -271,21 +309,21 @@ namespace MatrixCalc
         /// размеры матриц m1 и m2 не совпадают.</exception>
         public static Matrix operator -(Matrix m1, Matrix m2)
         {
-            if (m1.ColsAmount == m2.ColsAmount && m1.RowsAmount == m2.RowsAmount)
+            if (m1.ColsAmount != m2.ColsAmount || m1.RowsAmount != m2.RowsAmount)
             {
-                Matrix sum = new Matrix(m1.RowsAmount, m1.ColsAmount);
-                for (int i = 0; i < m1.RowsAmount; i++)
-                {
-                    for (int j = 0; j < m1.ColsAmount; j++)
-                    {
-                        sum.SetValueAt(i, j, m1.GetValueAt(i, j) - m2.GetValueAt(i, j));
-                    }
-                }
-
-                return sum;
+                throw new MatrixSummationException();
             }
 
-            throw new MatrixSummationException();
+            var sum = new Matrix(m1.RowsAmount, m1.ColsAmount);
+            for (var i = 0; i < m1.RowsAmount; i++)
+            {
+                for (var j = 0; j < m1.ColsAmount; j++)
+                {
+                    sum.SetValueAt(i, j, m1.GetValueAt(i, j) - m2.GetValueAt(i, j));
+                }
+            }
+
+            return sum;
         }
 
         /// <summary>
@@ -296,10 +334,10 @@ namespace MatrixCalc
         /// <returns>Матрица n, где n(i, j) = c * m(i, j)</returns>
         public static Matrix operator *(Matrix m, double c)
         {
-            Matrix result = new Matrix(m.RowsAmount, m.ColsAmount);
-            for (int i = 0; i < m.RowsAmount; i++)
+            var result = new Matrix(m.RowsAmount, m.ColsAmount);
+            for (var i = 0; i < m.RowsAmount; i++)
             {
-                for (int j = 0; j < m.ColsAmount; j++)
+                for (var j = 0; j < m.ColsAmount; j++)
                 {
                     result.SetValueAt(i, j, m.GetValueAt(i, j) * c);
                 }
@@ -315,7 +353,7 @@ namespace MatrixCalc
         /// <param name="m2">вторая матрица</param>
         /// <returns>Матрица размера m1.RowsAmount, m2.ColsAmount</returns>
         /// <exception cref="MatrixProductionException">Исключение выбрасывается, когда
-        /// размеры столбцов матрицы m1 не совпадает с количеством строк матрицы m2.</exception>
+        /// количество столбцов матрицы m1 не совпадает с количеством строк матрицы m2.</exception>
         public static Matrix operator *(Matrix m1, Matrix m2)
         {
             if (m1.ColsAmount != m2.RowsAmount)
@@ -323,7 +361,22 @@ namespace MatrixCalc
                 throw new MatrixProductionException();
             }
 
-            Matrix prod = new Matrix(m1.RowsAmount, m2.ColsAmount);
+            var prod = new Matrix(m1.RowsAmount, m2.ColsAmount);
+            var n = m1.ColsAmount;
+            for (var i = 0; i < prod.RowsAmount; i++)
+            {
+                for (var j = 0; j < prod.ColsAmount; j++)
+                {
+                    double sum = 0;
+                    for (var k = 0; k < n; k++)
+                    {
+                        sum += m1.GetValueAt(i, k) * m2.GetValueAt(k, j);
+                    }
+
+                    prod.SetValueAt(i, j, sum);
+                }
+            }
+
             return prod;
         }
     }
