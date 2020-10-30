@@ -4,15 +4,23 @@ namespace MatrixCalc
 {
     class Program
     {
+        public static string EXIT_COMMAND = "exit";
         static void Main(string[] args)
         {
-            Matrix.UpperRandomBound = 10;
-            Matrix.LowerRandomBound = 1;
-            Console.WriteLine("Matrix calculator");
-            var m1 = new Matrix(4, 4, MatrixType.RandomInt);
-            m1.Display();
-            m1.DisplayTriangulated();
-            Console.WriteLine(m1.Det);
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("==> Калькулятор матриц");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Введите help для получения инструкции.");
+            CommandHandler handler = new CommandHandler();
+
+            string userInput;
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.Write("> ");
+                userInput = Console.ReadLine();
+                Console.WriteLine(handler.Execute(userInput));
+            } while (userInput != EXIT_COMMAND);
 
 
         }

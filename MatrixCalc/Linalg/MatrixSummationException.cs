@@ -1,6 +1,6 @@
 using System;
 
-namespace MatrixCalc
+namespace MatrixCalc.Linalg
 {
     public class MatrixSummationException : Exception
     {

@@ -5,14 +5,20 @@
     <e p="$USER_HOME$/.cache/JetBrains/Rider2020.2/resharper-host/local/Transient/Rider/v202/SolutionCaches/_MatrixCalc.-859763122.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="MatrixCalc" t="IncludeRecursive">
-        <e p="Handler.cs" t="Include" />
-        <e p="InvalidMatrixSizeException.cs" t="Include" />
-        <e p="Matrix.cs" t="Include" />
+        <e p="CommandHandler.cs" t="Include" />
+        <e p="CreateMatrix.cs" t="Include" />
+        <e p="ICommand.cs" t="Include" />
+        <e p="Linalg" t="Include">
+          <e p="InvalidMatrixSizeException.cs" t="Include" />
+          <e p="Matrix.cs" t="Include" />
+          <e p="MatrixProductionException.cs" t="Include" />
+          <e p="MatrixSummationException.cs" t="Include" />
+          <e p="MatrixType.cs" t="Include" />
+          <e p="MultiplyMatrix.cs" t="Include" />
+          <e p="NonSquareMatrixException.cs" t="Include" />
+          <e p="SumMatrix.cs" t="Include" />
+        </e>
         <e p="MatrixCalc.csproj" t="IncludeRecursive" />
-        <e p="MatrixProductionException.cs" t="Include" />
-        <e p="MatrixSummationException.cs" t="Include" />
-        <e p="MatrixType.cs" t="Include" />
-        <e p="NonSquareMatrixException.cs" t="Include" />
         <e p="Program.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">

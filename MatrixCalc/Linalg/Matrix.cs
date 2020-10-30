@@ -1,22 +1,28 @@
 using System;
-using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 
-namespace MatrixCalc
+namespace MatrixCalc.Linalg
 {
     public class Matrix
     {
         /// <summary>
+        /// Хранилище всех матриц, созданных пользователем.
+        /// Ключ в этом словаре - это имя матрицы, которое задал пользователь.
+        /// </summary>
+        public static Dictionary<string, Matrix> Matrices = new Dictionary<string, Matrix>();
+        
+        /// <summary>
         /// Нижняя граница для генератора рандомных чисел.
         /// По умолчанию -1000.
         /// </summary>
-        public static int LowerRandomBound { get; set; } = -1000;
+        public static int LowerRandomBound { get; set; } = -100;
 
         /// <summary>
         /// Верхняя граница для генератора рандомных чисел.
         /// По умолчанию 1000
         /// (сама граница в диапазон не включается).
         /// </summary>
-        public static int UpperRandomBound { get; set; } = 1000;
+        public static int UpperRandomBound { get; set; } = 100;
 
 
         // Этот двумерный массив - сама матрица.
@@ -198,7 +204,7 @@ namespace MatrixCalc
                 Console.Write("| ");
                 for (var j = 0; j < ColsAmount; j++)
                 {
-                    double val = Math.Round(Decimal.ToDouble(_values[i, j]), 3);
+                    var val = Math.Round(decimal.ToDouble(_values[i, j]), 3);
                     Console.Write("{0,7}", val);
                 }
 
@@ -219,7 +225,7 @@ namespace MatrixCalc
                 Console.Write("| ");
                 for (var j = 0; j < ColsAmount; j++)
                 {
-                    double val = Math.Round(Decimal.ToDouble(_triang[i, j]), 3);
+                    var val = Math.Round(decimal.ToDouble(_triang[i, j]), 3);
                     Console.Write("{0,7}", val);
                 }
 
@@ -602,6 +608,11 @@ namespace MatrixCalc
             }
         }
 
+        /// <summary>
+        /// Вычисляет произведение элементов на диагонали в верхнетреугольной матрице.
+        /// </summary>
+        /// <exception cref="NonSquareMatrixException">Исключение выбрасывается, когда
+        /// данная матрица не является квадратной.</exception>
         private decimal MainDiagonalProduction
         {
             get
@@ -624,8 +635,8 @@ namespace MatrixCalc
 
         /// <summary>
         /// Возвращает определитель данной матрицы.
-        /// Определители 1, 2 и 3-го порядка считаются с помощью
-        /// мнемонического правила, 4-го и выше - приведением
+        /// Определители 1 и 2 порядка считаются с помощью
+        /// мнемонического правила, 3-го и выше - приведением
         /// к верхнетреугольному виду и перемножением
         /// элементов на главной диагонали.
         /// </summary>
@@ -644,9 +655,6 @@ namespace MatrixCalc
                 {
                     1 => _values[0, 0],
                     2 => _values[0, 0] * _values[1, 1] - _values[0, 1] * _values[1, 0],
-                    3 => _values[0, 0] * _values[1, 1] * _values[2, 2] + _values[0, 1] * _values[1, 2] * _values[2, 0] +
-                         _values[1, 0] * _values[2, 1] * _values[0, 2] - _values[0, 2] * _values[1, 1] * _values[2, 0] -
-                         _values[1, 0] * _values[0, 1] * _values[2, 2] - _values[1, 2] * _values[2, 1] * _values[0, 0],
                     _ => MainDiagonalProduction
                 };
             }

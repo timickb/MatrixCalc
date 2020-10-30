@@ -1,4 +1,4 @@
-namespace MatrixCalc
+namespace MatrixCalc.Linalg
 {
     public enum MatrixType
     {

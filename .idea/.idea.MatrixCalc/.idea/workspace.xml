@@ -14,8 +14,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98fec087-819a-4a73-978f-1946680e8d44" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/MatrixCalc/CommandHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MatrixCalc/ICommand.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MatrixCalc/Linalg/MultiplyMatrix.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MatrixCalc/Linalg/SumMatrix.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.MatrixCalc/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MatrixCalc/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MatrixCalc/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MatrixCalc/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MatrixCalc/Matrix.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Matrix.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MatrixCalc/Handler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/CreateMatrix.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MatrixCalc/InvalidMatrixSizeException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Linalg/InvalidMatrixSizeException.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MatrixCalc/Matrix.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Linalg/Matrix.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MatrixCalc/MatrixProductionException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Linalg/MatrixProductionException.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MatrixCalc/MatrixSummationException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Linalg/MatrixSummationException.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MatrixCalc/MatrixType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Linalg/MatrixType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MatrixCalc/NonSquareMatrixException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Linalg/NonSquareMatrixException.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MatrixCalc/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,7 +47,21 @@
         <option value="$PROJECT_DIR$/MatrixCalc/MatrixSummationException.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/MatrixProductionException.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/Matrix.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/CommandHandler" />
+        <option value="$PROJECT_DIR$/MatrixCalc/linalg/Matrix.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/Program.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Linalg/Matrix.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Linalg/InvalidMatrixSizeException.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Linalg/MatrixProductionException.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Linalg/MatrixSummationException.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Linalg/MatrixType.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Linalg/NonSquareMatrixException.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Linalg/ICommand.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/ICommand.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/CreateMatrix.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Linalg/MultiplyMatrix.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Linalg/SumMatrix.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/CommandHandler.cs" />
       </list>
     </option>
   </component>
@@ -89,7 +114,7 @@
       <option name="presentableId" value="Default" />
       <updated>1603966198538</updated>
       <workItem from="1603966202723" duration="4238000" />
-      <workItem from="1604008932680" duration="15548000" />
+      <workItem from="1604008932680" duration="19128000" />
     </task>
     <servers />
   </component>
@@ -114,22 +139,22 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1864" height="283" key="GridCell.Tab.0.bottom" timestamp="1604069522384">
+    <state width="1864" height="271" key="GridCell.Tab.0.bottom" timestamp="1604072551846">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1864" height="283" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1604069522384" />
-    <state width="1864" height="283" key="GridCell.Tab.0.center" timestamp="1604069522383">
+    <state width="1864" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1604072551846" />
+    <state width="1864" height="271" key="GridCell.Tab.0.center" timestamp="1604072551846">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1864" height="283" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1604069522383" />
-    <state width="1864" height="283" key="GridCell.Tab.0.left" timestamp="1604069522383">
+    <state width="1864" height="271" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1604072551846" />
+    <state width="1864" height="271" key="GridCell.Tab.0.left" timestamp="1604072551846">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1864" height="283" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1604069522383" />
-    <state width="1864" height="283" key="GridCell.Tab.0.right" timestamp="1604069522383">
+    <state width="1864" height="271" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1604072551846" />
+    <state width="1864" height="271" key="GridCell.Tab.0.right" timestamp="1604072551846">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1864" height="283" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1604069522383" />
+    <state width="1864" height="271" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1604072551846" />
     <state width="1864" height="369" key="GridCell.Tab.1.bottom" timestamp="1604010482518">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -194,9 +219,17 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1864" height="369" key="GridCell.Tab.4.right/0.0.1920.1080@0.0.1920.1080" timestamp="1604010482531" />
+    <state x="729" y="91" width="452" height="827" key="RiderGenerateDialog" timestamp="1604072042427">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="729" y="91" width="452" height="827" key="RiderGenerateDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1604072042427" />
     <state x="332" y="-17" width="1256" height="913" key="SettingsEditor" timestamp="1604053795859">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="332" y="-17" width="1256" height="913" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1604053795859" />
+    <state x="960" y="-3" width="960" height="1083" key="VCS.FileHistoryDialog" timestamp="1604071857025">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="960" y="-3" width="960" height="1083" key="VCS.FileHistoryDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1604071857025" />
   </component>
 </project>
