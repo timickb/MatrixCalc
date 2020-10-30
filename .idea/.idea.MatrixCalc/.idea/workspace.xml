@@ -14,16 +14,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98fec087-819a-4a73-978f-1946680e8d44" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/MatrixCalc/Commands/CreateMatrix.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MatrixCalc/Commands/DisplayMatrix.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MatrixCalc/Utils.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MatrixCalc/Commands/DisplayDet.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MatrixCalc/Commands/DisplayTrace.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MatrixCalc/Commands/SubMatrix.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MatrixCalc/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MatrixCalc/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MatrixCalc/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MatrixCalc/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MatrixCalc/CommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/CommandHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MatrixCalc/CreateMatrix.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Commands/MatrixList.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MatrixCalc/Linalg/Matrix.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Linalg/Matrix.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MatrixCalc/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MatrixCalc/Linalg/MultiplyMatrix.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Commands/MultiplyMatrix.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MatrixCalc/Linalg/SumMatrix.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Commands/SumMatrix.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,9 +59,14 @@
         <option value="$PROJECT_DIR$/MatrixCalc/DisplayMatrix.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/MatrixList.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/Commands/DisplayMatrix.cs" />
-        <option value="$PROJECT_DIR$/MatrixCalc/CommandHandler.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/Commands/MatrixList.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/Commands/CreateMatrix.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Commands/DisplayDet.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Commands/DisplayTrace.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Commands/MultiplyMatrix.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Commands/SumMatrix.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Commands/SubMatrix.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/CommandHandler.cs" />
       </list>
     </option>
   </component>
@@ -116,7 +119,7 @@
       <option name="presentableId" value="Default" />
       <updated>1603966198538</updated>
       <workItem from="1603966202723" duration="4238000" />
-      <workItem from="1604008932680" duration="25627000" />
+      <workItem from="1604008932680" duration="27140000" />
     </task>
     <servers />
   </component>
@@ -141,22 +144,22 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1864" height="271" key="GridCell.Tab.0.bottom" timestamp="1604097170796">
+    <state width="1864" height="271" key="GridCell.Tab.0.bottom" timestamp="1604098843303">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1864" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1604097170796" />
-    <state width="1864" height="271" key="GridCell.Tab.0.center" timestamp="1604097170794">
+    <state width="1864" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1604098843303" />
+    <state width="1864" height="271" key="GridCell.Tab.0.center" timestamp="1604098843302">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1864" height="271" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1604097170794" />
-    <state width="1864" height="271" key="GridCell.Tab.0.left" timestamp="1604097170793">
+    <state width="1864" height="271" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1604098843302" />
+    <state width="1864" height="271" key="GridCell.Tab.0.left" timestamp="1604098843301">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1864" height="271" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1604097170793" />
-    <state width="1864" height="271" key="GridCell.Tab.0.right" timestamp="1604097170795">
+    <state width="1864" height="271" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1604098843301" />
+    <state width="1864" height="271" key="GridCell.Tab.0.right" timestamp="1604098843302">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1864" height="271" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1604097170795" />
+    <state width="1864" height="271" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1604098843302" />
     <state width="1864" height="369" key="GridCell.Tab.1.bottom" timestamp="1604010482518">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -221,10 +224,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1864" height="369" key="GridCell.Tab.4.right/0.0.1920.1080@0.0.1920.1080" timestamp="1604010482531" />
-    <state x="729" y="15" width="452" height="827" key="RiderGenerateDialog" timestamp="1604096798669">
+    <state x="729" y="-99" width="452" height="827" key="RiderGenerateDialog" timestamp="1604098578799">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="729" y="15" width="452" height="827" key="RiderGenerateDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1604096798669" />
+    <state x="729" y="-99" width="452" height="827" key="RiderGenerateDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1604098578799" />
     <state x="332" y="-17" width="1256" height="913" key="SettingsEditor" timestamp="1604053795859">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

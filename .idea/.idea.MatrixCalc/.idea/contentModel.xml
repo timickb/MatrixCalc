@@ -8,8 +8,13 @@
         <e p="CommandHandler.cs" t="Include" />
         <e p="Commands" t="Include">
           <e p="CreateMatrix.cs" t="Include" />
+          <e p="DisplayDet.cs" t="Include" />
           <e p="DisplayMatrix.cs" t="Include" />
+          <e p="DisplayTrace.cs" t="Include" />
           <e p="MatrixList.cs" t="Include" />
+          <e p="MultiplyMatrix.cs" t="Include" />
+          <e p="SubMatrix.cs" t="Include" />
+          <e p="SumMatrix.cs" t="Include" />
         </e>
         <e p="ICommand.cs" t="Include" />
         <e p="Linalg" t="Include">
@@ -18,9 +23,7 @@
           <e p="MatrixProductionException.cs" t="Include" />
           <e p="MatrixSummationException.cs" t="Include" />
           <e p="MatrixType.cs" t="Include" />
-          <e p="MultiplyMatrix.cs" t="Include" />
           <e p="NonSquareMatrixException.cs" t="Include" />
-          <e p="SumMatrix.cs" t="Include" />
         </e>
         <e p="MatrixCalc.csproj" t="IncludeRecursive" />
         <e p="Program.cs" t="Include" />

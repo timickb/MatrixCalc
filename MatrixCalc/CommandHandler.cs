@@ -16,6 +16,11 @@ namespace MatrixCalc
             commands.Add(new CreateMatrix("create"));
             commands.Add(new DisplayMatrix("display"));
             commands.Add(new MatrixList("list"));
+            commands.Add(new DisplayDet("det"));
+            commands.Add(new DisplayTrace("trace"));
+            commands.Add(new MultiplyMatrix("mul"));
+            commands.Add(new SumMatrix("add"));
+            commands.Add(new SubMatrix("sub"));
         }
         
         /// <summary>
