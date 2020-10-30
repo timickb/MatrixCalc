@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 
 namespace MatrixCalc
 {
@@ -8,21 +9,21 @@ namespace MatrixCalc
         /// Нижняя граница для генератора рандомных чисел.
         /// По умолчанию -1000.
         /// </summary>
-        public static double LowerRandomBound { get; set; } = -1000;
+        public static int LowerRandomBound { get; set; } = -1000;
 
         /// <summary>
         /// Верхняя граница для генератора рандомных чисел.
         /// По умолчанию 1000
         /// (сама граница в диапазон не включается).
         /// </summary>
-        public static double UpperRandomBound { get; set; } = 1000;
+        public static int UpperRandomBound { get; set; } = 1000;
 
 
         // Этот двумерный массив - сама матрица.
-        private readonly double[,] _values;
+        private decimal[,] _values;
 
-        // Приведена ли на данный момент матрица к ступенчатому (верхнетреугольному) виду.
-        private bool _isTriangulated = false;
+        // В этом двумерном массиве лежит матрица в верхнетреугольном виде.
+        private decimal[,] _triang;
 
         public int RowsAmount => _values.GetLength(0);
         public int ColsAmount => _values.GetLength(1);
@@ -50,12 +51,10 @@ namespace MatrixCalc
                     }
                 }
             }
-
-            _isTriangulated = false;
         }
 
         // Кладет во все ячейки матрицы число value.
-        private void FillWithValue(double value)
+        private void FillWithValue(decimal value)
         {
             for (var i = 0; i < RowsAmount; i++)
             {
@@ -64,8 +63,6 @@ namespace MatrixCalc
                     _values[i, j] = value;
                 }
             }
-
-            _isTriangulated = false;
         }
 
         private void FillWithRandomValues()
@@ -75,11 +72,10 @@ namespace MatrixCalc
             {
                 for (var j = 0; j < ColsAmount; j++)
                 {
-                    _values[i, j] = r.NextDouble() * (UpperRandomBound - LowerRandomBound) + LowerRandomBound;
+                    _values[i, j] =
+                        Convert.ToDecimal(r.NextDouble() * (UpperRandomBound - LowerRandomBound) + LowerRandomBound);
                 }
             }
-
-            _isTriangulated = false;
         }
 
         private void FillWithRandomIntValues()
@@ -89,29 +85,35 @@ namespace MatrixCalc
             {
                 for (var j = 0; j < ColsAmount; j++)
                 {
-                    _values[i, j] = r.Next((int) LowerRandomBound, (int) UpperRandomBound);
+                    _values[i, j] = r.Next(LowerRandomBound, UpperRandomBound);
                 }
             }
-
-            _isTriangulated = false;
         }
 
         /// <summary>
-        /// Создает нулевую матрицу.
+        /// Создает матрицу из данного двумерного массива
         /// </summary>
-        /// <param name="m">количество строк</param>
-        /// <param name="n">количество столбцов</param>
+        /// <param name="arr">произвольный двумерный массив</param>
         /// <exception cref="InvalidMatrixSizeException">Исключение выбрасывается, когда
         /// число строк или число столбцов матрицы не является положительным числом.</exception>
-        public Matrix(int m, int n)
+        public Matrix(decimal[,] arr)
         {
+            var m = arr.GetLength(0);
+            var n = arr.GetLength(1);
             if (m <= 0 || n <= 0)
             {
                 throw new InvalidMatrixSizeException();
             }
 
-            _values = new double[n, m];
-            FillWithValue(0);
+            _values = new decimal[m, n];
+            for (var i = 0; i < m; i++)
+            {
+                for (var j = 0; j < n; j++)
+                {
+                    _values[i, j] = arr[i, j];
+                }
+            }
+            CreateTriangulated();
         }
 
         /// <summary>
@@ -138,7 +140,7 @@ namespace MatrixCalc
                 throw new NonSquareMatrixException();
             }
 
-            _values = new double[m, n];
+            _values = new decimal[m, n];
 
             switch (type)
             {
@@ -161,6 +163,8 @@ namespace MatrixCalc
                     FillWithValue(0);
                     break;
             }
+
+            CreateTriangulated();
         }
 
         /// <summary>
@@ -178,8 +182,9 @@ namespace MatrixCalc
                 throw new InvalidMatrixSizeException();
             }
 
-            _values = new double[m, n];
+            _values = new decimal[m, n];
             FillWithValue(value);
+            CreateTriangulated();
         }
 
         /// <summary>
@@ -187,15 +192,42 @@ namespace MatrixCalc
         /// </summary>
         public void Display()
         {
+            Console.WriteLine();
             for (var i = 0; i < RowsAmount; i++)
             {
+                Console.Write("| ");
                 for (var j = 0; j < ColsAmount; j++)
                 {
-                    Console.Write(_values[i, j] + " ");
+                    double val = Math.Round(Decimal.ToDouble(_values[i, j]), 3);
+                    Console.Write("{0,7}", val);
                 }
 
+                Console.Write(" |");
                 Console.WriteLine();
             }
+
+            Console.WriteLine();
+        }
+        /// <summary>
+        /// Красивенько печатает верхнетреугольную матрицу в консоль.
+        /// </summary>
+        public void DisplayTriangulated()
+        {
+            Console.WriteLine();
+            for (var i = 0; i < RowsAmount; i++)
+            {
+                Console.Write("| ");
+                for (var j = 0; j < ColsAmount; j++)
+                {
+                    double val = Math.Round(Decimal.ToDouble(_triang[i, j]), 3);
+                    Console.Write("{0,7}", val);
+                }
+
+                Console.Write(" |");
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
         }
 
         /// <summary>
@@ -206,12 +238,11 @@ namespace MatrixCalc
         /// <param name="value">новое значение</param>
         /// <exception cref="IndexOutOfRangeException">Исключение выбрасывается, когда
         /// в матрице не существует элемента с индексом (i, j).</exception>
-        public void SetValueAt(int i, int j, double value)
+        private void SetValueAt(int i, int j, decimal value)
         {
             try
             {
                 _values[i, j] = value;
-                _isTriangulated = false;
             }
             catch (IndexOutOfRangeException)
             {
@@ -227,7 +258,7 @@ namespace MatrixCalc
         /// <returns>значение элемента с индексом (i, j)</returns>
         /// <exception cref="IndexOutOfRangeException">Исключение выбрасывается, когда
         /// в матрице не существует элемента с индексом (i, j).</exception>
-        public double GetValueAt(int i, int j)
+        private decimal GetValueAt(int i, int j)
         {
             try
             {
@@ -244,7 +275,7 @@ namespace MatrixCalc
         /// </summary>
         /// <exception cref="NonSquareMatrixException">Исключение выбрасывается,
         /// когда матрица не является квадратной.</exception>
-        public double Trace
+        public decimal Trace
         {
             get
             {
@@ -253,7 +284,7 @@ namespace MatrixCalc
                     throw new NonSquareMatrixException();
                 }
 
-                double trace = 0;
+                decimal trace = 0;
                 for (var i = 0; i < RowsAmount; i++)
                 {
                     trace += _values[i, i];
@@ -273,7 +304,7 @@ namespace MatrixCalc
             {
                 var m = ColsAmount;
                 var n = RowsAmount;
-                var transposed = new Matrix(m, n);
+                var transposed = new Matrix(m, n, MatrixType.Zeros);
                 for (var i = 0; i < m; i++)
                 {
                     for (var j = 0; j < n; j++)
@@ -301,7 +332,7 @@ namespace MatrixCalc
                 throw new MatrixSummationException();
             }
 
-            var sum = new Matrix(m1.RowsAmount, m1.ColsAmount);
+            var sum = new Matrix(m1.RowsAmount, m1.ColsAmount, MatrixType.Zeros);
             for (var i = 0; i < m1.RowsAmount; i++)
             {
                 for (var j = 0; j < m1.ColsAmount; j++)
@@ -328,7 +359,7 @@ namespace MatrixCalc
                 throw new MatrixSummationException();
             }
 
-            var sum = new Matrix(m1.RowsAmount, m1.ColsAmount);
+            var sum = new Matrix(m1.RowsAmount, m1.ColsAmount, MatrixType.Zeros);
             for (var i = 0; i < m1.RowsAmount; i++)
             {
                 for (var j = 0; j < m1.ColsAmount; j++)
@@ -346,9 +377,9 @@ namespace MatrixCalc
         /// <param name="m">произвольная матрица</param>
         /// <param name="c">вещественное число</param>
         /// <returns>Матрица n, где n(i, j) = c * m(i, j)</returns>
-        public static Matrix operator *(Matrix m, double c)
+        public static Matrix operator *(Matrix m, decimal c)
         {
-            var result = new Matrix(m.RowsAmount, m.ColsAmount);
+            var result = new Matrix(m.RowsAmount, m.ColsAmount, MatrixType.Zeros);
             for (var i = 0; i < m.RowsAmount; i++)
             {
                 for (var j = 0; j < m.ColsAmount; j++)
@@ -375,13 +406,13 @@ namespace MatrixCalc
                 throw new MatrixProductionException();
             }
 
-            var prod = new Matrix(m1.RowsAmount, m2.ColsAmount);
+            var prod = new Matrix(m1.RowsAmount, m2.ColsAmount, MatrixType.Zeros);
             var n = m1.ColsAmount;
             for (var i = 0; i < prod.RowsAmount; i++)
             {
                 for (var j = 0; j < prod.ColsAmount; j++)
                 {
-                    double sum = 0;
+                    decimal sum = 0;
                     for (var k = 0; k < n; k++)
                     {
                         try
@@ -408,23 +439,23 @@ namespace MatrixCalc
                 return;
             }
 
-            var tmpRow = new double[ColsAmount];
+            var tmpRow = new decimal[ColsAmount];
             // Возьмем i-ю строку и запишем ее в tmpRow.
             for (var k = 0; k < ColsAmount; k++)
             {
-                tmpRow[k] = _values[i, k];
+                tmpRow[k] = _triang[i, k];
             }
 
             // На место i-й строки положим j-ю строку.
             for (var k = 0; k < ColsAmount; k++)
             {
-                _values[i, k] = _values[j, k];
+                _values[i, k] = _triang[j, k];
             }
 
             // На место j-й строки положим tmpRow.
             for (var k = 0; k < ColsAmount; k++)
             {
-                _values[j, k] = tmpRow[k];
+                _triang[j, k] = tmpRow[k];
             }
         }
 
@@ -433,7 +464,7 @@ namespace MatrixCalc
         /// </summary>
         /// <param name="i">индекс строки</param>
         /// <param name="c">вещественное число</param>
-        private void MultiplyRow(int i, double c)
+        private void MultiplyRow(int i, decimal c)
         {
             if (i < 0 || i >= RowsAmount)
             {
@@ -442,7 +473,7 @@ namespace MatrixCalc
 
             for (int k = 0; k < ColsAmount; k++)
             {
-                _values[i, k] *= c;
+                _triang[i, k] *= c;
             }
         }
 
@@ -461,38 +492,129 @@ namespace MatrixCalc
 
             for (var k = 0; k < ColsAmount; k++)
             {
-                _values[i, k] += _values[j, k];
+                _triang[i, k] += _triang[j, k];
             }
         }
 
         /// <summary>
-        /// Приводит матрицу к верхнетреугольному виду методом Гаусса.
+        /// Добавляет к строке i строку j, умноженную
+        /// на константу c.
         /// </summary>
-        private void Triangulate()
+        /// <param name="i">индекс первой строки</param>
+        /// <param name="j">индекс второй строки</param>
+        /// <param name="c">вещественное число</param>
+        private void SumRows(int i, int j, decimal c)
         {
+            if (i < 0 || j < 0 || i >= RowsAmount || j >= RowsAmount)
+            {
+                return;
+            }
 
-
-            _isTriangulated = true;
+            for (var k = 0; k < ColsAmount; k++)
+            {
+                _triang[i, k] += _triang[j, k] * c;
+            }
         }
 
-        private double MainDiagonalProduction
+        /// <summary>
+        /// Меняет знак у каждого элемента строки i на противоположный.
+        /// </summary>
+        /// <param name="i">индекс строки</param>
+        private void InvertRowSign(int i)
+        {
+            if (i < 0 || i >= RowsAmount)
+            {
+                return;
+            }
+
+            for (var k = 0; k < ColsAmount; k++)
+            {
+                if (_triang[i, k] != 0)
+                {
+                    _triang[i, k] *= -1;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Приводит матрицу к верхнетреугольному (ступенчатому) виду методом Гаусса.
+        /// </summary>
+        private void CreateTriangulated()
+        {
+            _triang = new decimal[RowsAmount, ColsAmount];
+            // Скопируем все значения из исходной матрицы _values в _triang.
+            for (var i0 = 0; i0 < RowsAmount; i0++)
+            {
+                for (var j0 = 0; j0 < ColsAmount; j0++)
+                {
+                    _triang[i0, j0] = _values[i0, j0];
+                }
+            }
+
+            var i = 0;
+            var j = 0;
+            // Будем проходить по всем столбцам и строкам.
+            while (i < RowsAmount && j < ColsAmount)
+            {
+                // Найдем максимальный по модулю элемент в j-м столбце.
+                var maxElement = Decimal.Zero;
+                // Индекс строки, в которой лежит этот элемент.
+                var rowIndex = 0;
+                for (var k = i; k < RowsAmount; k++)
+                {
+                    if (Math.Abs(_triang[k, j]) > maxElement)
+                    {
+                        rowIndex = k;
+                        maxElement = Math.Abs(_triang[k, j]);
+                    }
+                }
+
+                if (maxElement == Decimal.Zero)
+                {
+                    /* На всякий случай обнулим остальные элементы в столбце.
+                     (вдруг там что-то ненулевое осталось?...) */
+                    for (var k = i; k < RowsAmount; k++)
+                    {
+                        _triang[k, j] = Math.Abs(decimal.Zero);
+                    }
+
+                    j++;
+                    continue;
+                }
+
+                // Свопнем найденную строку с i-й, если они - не одна и та же строка.
+                if (rowIndex != i)
+                {
+                    SwapRows(rowIndex, i);
+                    // Поменяем знак одной из них, чтобы компенсировать изменение знака определителя.
+                    InvertRowSign(i);
+                }
+
+                for (var k = i + 1; k < RowsAmount; k++)
+                {
+                    // Добавим к строке k строку i, умноженную на c.
+                    var c = -(_triang[k, j]) / (_triang[i, j]);
+                    SumRows(k, i, c);
+                }
+
+                i++;
+                j++;
+            }
+        }
+
+        private decimal MainDiagonalProduction
         {
             get
             {
-                if (!_isTriangulated)
-                {
-                    Triangulate();
-                }
-
                 if (ColsAmount != RowsAmount)
                 {
                     throw new NonSquareMatrixException();
                 }
 
-                var prod = 1.0;
+                var prod = Decimal.One;
                 for (var i = 0; i < ColsAmount; i++)
                 {
-                    prod *= _values[i, i];
+                    prod *= _triang[i, i];
                 }
 
                 return prod;
@@ -509,7 +631,7 @@ namespace MatrixCalc
         /// </summary>
         /// <exception cref="NonSquareMatrixException">Исключение выбрасывается, когда
         /// данная матрциа не является квадратной.</exception>
-        public double Det
+        public decimal Det
         {
             get
             {
@@ -517,7 +639,7 @@ namespace MatrixCalc
                 {
                     throw new NonSquareMatrixException();
                 }
-                
+
                 return ColsAmount switch
                 {
                     1 => _values[0, 0],

@@ -9,8 +9,9 @@ namespace MatrixCalc
             Matrix.UpperRandomBound = 8;
             Matrix.LowerRandomBound = -4;
             Console.WriteLine("Matrix calculator");
-            var m1 = new Matrix(3, 3, MatrixType.RandomInt);
-            Console.WriteLine(m1.Det);
+            var m1 = new Matrix(4, 4, MatrixType.Random);
+            m1.Display();
+            m1.DisplayTriangulated();
 
 
         }
