@@ -1,5 +1,4 @@
 using System;
-using System.Security.Cryptography;
 
 namespace MatrixCalc
 {
@@ -21,6 +20,9 @@ namespace MatrixCalc
 
         // Этот двумерный массив - сама матрица.
         private readonly double[,] _values;
+
+        // Приведена ли на данный момент матрица к ступенчатому (верхнетреугольному) виду.
+        private bool _isTriangulated = false;
 
         public int RowsAmount => _values.GetLength(0);
         public int ColsAmount => _values.GetLength(1);
@@ -48,6 +50,8 @@ namespace MatrixCalc
                     }
                 }
             }
+
+            _isTriangulated = false;
         }
 
         // Кладет во все ячейки матрицы число value.
@@ -60,6 +64,8 @@ namespace MatrixCalc
                     _values[i, j] = value;
                 }
             }
+
+            _isTriangulated = false;
         }
 
         private void FillWithRandomValues()
@@ -72,6 +78,8 @@ namespace MatrixCalc
                     _values[i, j] = r.NextDouble() * (UpperRandomBound - LowerRandomBound) + LowerRandomBound;
                 }
             }
+
+            _isTriangulated = false;
         }
 
         private void FillWithRandomIntValues()
@@ -84,6 +92,8 @@ namespace MatrixCalc
                     _values[i, j] = r.Next((int) LowerRandomBound, (int) UpperRandomBound);
                 }
             }
+
+            _isTriangulated = false;
         }
 
         /// <summary>
@@ -201,6 +211,7 @@ namespace MatrixCalc
             try
             {
                 _values[i, j] = value;
+                _isTriangulated = false;
             }
             catch (IndexOutOfRangeException)
             {
@@ -256,20 +267,23 @@ namespace MatrixCalc
         /// Возвращает транспонированную по отношению к данной матрицу.
         /// </summary>
         /// <returns>транспонированная матрица</returns>
-        public Matrix GetTransposedMatrix()
+        public Matrix TransposedMatrix
         {
-            var m = ColsAmount;
-            var n = RowsAmount;
-            var transposed = new Matrix(m, n);
-            for (var i = 0; i < m; i++)
+            get
             {
-                for (var j = 0; j < n; j++)
+                var m = ColsAmount;
+                var n = RowsAmount;
+                var transposed = new Matrix(m, n);
+                for (var i = 0; i < m; i++)
                 {
-                    transposed.SetValueAt(i, j, _values[j, i]);
+                    for (var j = 0; j < n; j++)
+                    {
+                        transposed.SetValueAt(i, j, _values[j, i]);
+                    }
                 }
-            }
 
-            return transposed;
+                return transposed;
+            }
         }
 
         /// <summary>
@@ -370,7 +384,14 @@ namespace MatrixCalc
                     double sum = 0;
                     for (var k = 0; k < n; k++)
                     {
-                        sum += m1.GetValueAt(i, k) * m2.GetValueAt(k, j);
+                        try
+                        {
+                            sum += m1.GetValueAt(i, k) * m2.GetValueAt(k, j);
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            Console.WriteLine($"i = {i}, j = {j}, k = {k}");
+                        }
                     }
 
                     prod.SetValueAt(i, j, sum);
@@ -378,6 +399,135 @@ namespace MatrixCalc
             }
 
             return prod;
+        }
+
+        private void SwapRows(int i, int j)
+        {
+            if (i < 0 || j < 0 || i >= RowsAmount || j >= RowsAmount)
+            {
+                return;
+            }
+
+            var tmpRow = new double[ColsAmount];
+            // Возьмем i-ю строку и запишем ее в tmpRow.
+            for (var k = 0; k < ColsAmount; k++)
+            {
+                tmpRow[k] = _values[i, k];
+            }
+
+            // На место i-й строки положим j-ю строку.
+            for (var k = 0; k < ColsAmount; k++)
+            {
+                _values[i, k] = _values[j, k];
+            }
+
+            // На место j-й строки положим tmpRow.
+            for (var k = 0; k < ColsAmount; k++)
+            {
+                _values[j, k] = tmpRow[k];
+            }
+        }
+
+        /// <summary>
+        /// Умножает строку i на число c.
+        /// </summary>
+        /// <param name="i">индекс строки</param>
+        /// <param name="c">вещественное число</param>
+        private void MultiplyRow(int i, double c)
+        {
+            if (i < 0 || i >= RowsAmount)
+            {
+                return;
+            }
+
+            for (int k = 0; k < ColsAmount; k++)
+            {
+                _values[i, k] *= c;
+            }
+        }
+
+        /// <summary>
+        /// Вычисляет сумму строк i и j, результат кладет
+        /// в строку i.
+        /// </summary>
+        /// <param name="i">индекс первой строки</param>
+        /// <param name="j">индекс второй строки</param>
+        private void SumRows(int i, int j)
+        {
+            if (i < 0 || j < 0 || i >= RowsAmount || j >= RowsAmount)
+            {
+                return;
+            }
+
+            for (var k = 0; k < ColsAmount; k++)
+            {
+                _values[i, k] += _values[j, k];
+            }
+        }
+
+        /// <summary>
+        /// Приводит матрицу к верхнетреугольному виду методом Гаусса.
+        /// </summary>
+        private void Triangulate()
+        {
+
+
+            _isTriangulated = true;
+        }
+
+        private double MainDiagonalProduction
+        {
+            get
+            {
+                if (!_isTriangulated)
+                {
+                    Triangulate();
+                }
+
+                if (ColsAmount != RowsAmount)
+                {
+                    throw new NonSquareMatrixException();
+                }
+
+                var prod = 1.0;
+                for (var i = 0; i < ColsAmount; i++)
+                {
+                    prod *= _values[i, i];
+                }
+
+                return prod;
+            }
+        }
+
+
+        /// <summary>
+        /// Возвращает определитель данной матрицы.
+        /// Определители 1, 2 и 3-го порядка считаются с помощью
+        /// мнемонического правила, 4-го и выше - приведением
+        /// к верхнетреугольному виду и перемножением
+        /// элементов на главной диагонали.
+        /// </summary>
+        /// <exception cref="NonSquareMatrixException">Исключение выбрасывается, когда
+        /// данная матрциа не является квадратной.</exception>
+        public double Det
+        {
+            get
+            {
+                if (ColsAmount != RowsAmount)
+                {
+                    throw new NonSquareMatrixException();
+                }
+                
+                return ColsAmount switch
+                {
+                    1 => _values[0, 0],
+                    2 => _values[0, 0] * _values[1, 1] - _values[0, 1] * _values[1, 0],
+                    3 => _values[0, 0] * _values[1, 1] * _values[2, 2] + _values[0, 1] * _values[1, 2] * _values[2, 0] +
+                         _values[1, 0] * _values[2, 1] * _values[0, 2] - _values[0, 2] * _values[1, 1] * _values[2, 0] -
+                         _values[1, 0] * _values[0, 1] * _values[2, 2] - _values[1, 2] * _values[2, 1] * _values[0, 0],
+                    _ => MainDiagonalProduction
+                };
+            }
         }
     }
 }
