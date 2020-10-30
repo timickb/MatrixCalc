@@ -8,7 +8,7 @@ namespace MatrixCalc
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("==> Калькулятор матриц");
+            Console.WriteLine("==> Калькулятор матриц <==");
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Введите help для получения инструкции.");
             CommandHandler handler = new CommandHandler();

@@ -10,7 +10,7 @@ namespace MatrixCalc.Linalg
         /// Ключ в этом словаре - это имя матрицы, которое задал пользователь.
         /// </summary>
         public static Dictionary<string, Matrix> Matrices = new Dictionary<string, Matrix>();
-        
+
         /// <summary>
         /// Нижняя граница для генератора рандомных чисел.
         /// По умолчанию -1000.
@@ -119,6 +119,7 @@ namespace MatrixCalc.Linalg
                     _values[i, j] = arr[i, j];
                 }
             }
+
             CreateTriangulated();
         }
 
@@ -181,7 +182,7 @@ namespace MatrixCalc.Linalg
         /// <param name="value">значение в каждой ячейке</param>
         /// <exception cref="InvalidMatrixSizeException">Исключение выбрасывается, когда
         /// число строк или число столбцов матрицы не является положительным числом.</exception>
-        public Matrix(int m, int n, int value)
+        public Matrix(int m, int n, decimal value)
         {
             if (m <= 0 || n <= 0)
             {
@@ -214,6 +215,7 @@ namespace MatrixCalc.Linalg
 
             Console.WriteLine();
         }
+
         /// <summary>
         /// Красивенько печатает верхнетреугольную матрицу в консоль.
         /// </summary>
@@ -421,14 +423,7 @@ namespace MatrixCalc.Linalg
                     decimal sum = 0;
                     for (var k = 0; k < n; k++)
                     {
-                        try
-                        {
-                            sum += m1.GetValueAt(i, k) * m2.GetValueAt(k, j);
-                        }
-                        catch (IndexOutOfRangeException)
-                        {
-                            Console.WriteLine($"i = {i}, j = {j}, k = {k}");
-                        }
+                        sum += m1.GetValueAt(i, k) * m2.GetValueAt(k, j);
                     }
 
                     prod.SetValueAt(i, j, sum);
@@ -438,6 +433,7 @@ namespace MatrixCalc.Linalg
             return prod;
         }
 
+        // Меняет местами две строки в верхнетреугольной матрице.
         private void SwapRows(int i, int j)
         {
             if (i < 0 || j < 0 || i >= RowsAmount || j >= RowsAmount)
@@ -465,11 +461,7 @@ namespace MatrixCalc.Linalg
             }
         }
 
-        /// <summary>
-        /// Умножает строку i на число c.
-        /// </summary>
-        /// <param name="i">индекс строки</param>
-        /// <param name="c">вещественное число</param>
+        // Умножает строку i на число c в верхнетреугольной матрице.
         private void MultiplyRow(int i, decimal c)
         {
             if (i < 0 || i >= RowsAmount)
@@ -483,12 +475,7 @@ namespace MatrixCalc.Linalg
             }
         }
 
-        /// <summary>
-        /// Вычисляет сумму строк i и j, результат кладет
-        /// в строку i.
-        /// </summary>
-        /// <param name="i">индекс первой строки</param>
-        /// <param name="j">индекс второй строки</param>
+        // Прибавляет к строке i строку j (в верхнетреугольной матрице).
         private void SumRows(int i, int j)
         {
             if (i < 0 || j < 0 || i >= RowsAmount || j >= RowsAmount)
@@ -502,13 +489,7 @@ namespace MatrixCalc.Linalg
             }
         }
 
-        /// <summary>
-        /// Добавляет к строке i строку j, умноженную
-        /// на константу c.
-        /// </summary>
-        /// <param name="i">индекс первой строки</param>
-        /// <param name="j">индекс второй строки</param>
-        /// <param name="c">вещественное число</param>
+        // Прибавляет к строке i строку j, умноженную на число c (в верхнетреугольной матрице).
         private void SumRows(int i, int j, decimal c)
         {
             if (i < 0 || j < 0 || i >= RowsAmount || j >= RowsAmount)
@@ -523,27 +504,10 @@ namespace MatrixCalc.Linalg
         }
 
         /// <summary>
-        /// Меняет знак у каждого элемента строки i на противоположный.
-        /// </summary>
-        /// <param name="i">индекс строки</param>
-        private void InvertRowSign(int i)
-        {
-            if (i < 0 || i >= RowsAmount)
-            {
-                return;
-            }
-
-            for (var k = 0; k < ColsAmount; k++)
-            {
-                if (_triang[i, k] != 0)
-                {
-                    _triang[i, k] *= -1;
-                }
-            }
-        }
-
-        /// <summary>
         /// Приводит матрицу к верхнетреугольному (ступенчатому) виду методом Гаусса.
+        /// Предполагается, что данный метод будет вызываться только при создании
+        /// матрицы, т.е. только в конструкторе, для того, чтобы сразу
+        /// инициализировать массив _triang.
         /// </summary>
         private void CreateTriangulated()
         {
@@ -593,7 +557,7 @@ namespace MatrixCalc.Linalg
                 {
                     SwapRows(rowIndex, i);
                     // Поменяем знак одной из них, чтобы компенсировать изменение знака определителя.
-                    InvertRowSign(i);
+                    MultiplyRow(i, -1);
                 }
 
                 for (var k = i + 1; k < RowsAmount; k++)
