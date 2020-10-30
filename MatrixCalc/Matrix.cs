@@ -449,7 +449,7 @@ namespace MatrixCalc
             // На место i-й строки положим j-ю строку.
             for (var k = 0; k < ColsAmount; k++)
             {
-                _values[i, k] = _triang[j, k];
+                _triang[i, k] = _triang[j, k];
             }
 
             // На место j-й строки положим tmpRow.
