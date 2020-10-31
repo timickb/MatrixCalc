@@ -16,12 +16,12 @@ namespace MatrixCalc.Commands
                 return "Использование: trace <matrix_name>";
             }
 
-            if (!Matrix.Matrices.ContainsKey(args[1]))
+            if (!Matrix.Storage.ContainsKey(args[1]))
             {
                 return $"Матрицы {args[1]} не существует.";
             }
 
-            var m = Matrix.Matrices[args[1]];
+            var m = Matrix.Storage[args[1]];
             try
             {
                 return $"След данной матрицы равен {m.Trace}";

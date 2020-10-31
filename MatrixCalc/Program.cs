@@ -11,8 +11,8 @@ namespace MatrixCalc
             Console.WriteLine("==> Калькулятор матриц <==");
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Введите help для получения инструкции.");
-            CommandHandler handler = new CommandHandler();
-
+            var handler = new CommandHandler();
+            
             string userInput;
             do
             {

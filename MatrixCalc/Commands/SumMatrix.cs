@@ -19,18 +19,18 @@ namespace MatrixCalc.Commands
 
             var name1 = args[1];
             var name2 = args[2];
-            if (!Matrix.Matrices.ContainsKey(name1))
+            if (!Matrix.Storage.ContainsKey(name1))
             {
                 return $"Матрицы {name1} не существует.";
             }
 
-            if (!Matrix.Matrices.ContainsKey(name2))
+            if (!Matrix.Storage.ContainsKey(name2))
             {
                 return $"Матрицы {name2} не существует.";
             }
 
-            var m1 = Matrix.Matrices[name1];
-            var m2 = Matrix.Matrices[name2];
+            var m1 = Matrix.Storage[name1];
+            var m2 = Matrix.Storage[name2];
             try
             {
                 var result = m1 + m2;
@@ -42,12 +42,12 @@ namespace MatrixCalc.Commands
                         return "Имя для матрицы-результата некорректно.";
                     }
 
-                    if (Matrix.Matrices.ContainsKey(args[3]))
+                    if (Matrix.Storage.ContainsKey(args[3]))
                     {
                         return $"Матрица с именем {args[3]} уже существует.";
                     }
                     // Если все ок - кладем в список матрицу result.
-                    Matrix.Matrices.Add(args[3], result);
+                    Matrix.Storage.Add(args[3], result);
                     return $"Матрицы просуммированы, результатом является новая матрица {args[3]}";
                 }
                 result.Display();

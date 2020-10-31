@@ -19,11 +19,11 @@ namespace MatrixCalc.Commands
             }
 
             var name = args[1];
-            if (!Matrix.Matrices.ContainsKey(name))
+            if (!Matrix.Storage.ContainsKey(name))
             {
                 return $"Матрицы с именем {name} не существует.";
             }
-            Matrix.Matrices[name].Display();
+            Matrix.Storage[name].Display();
             return String.Empty;
         }
     }

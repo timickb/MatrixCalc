@@ -11,13 +11,17 @@
           <e p="DisplayDet.cs" t="Include" />
           <e p="DisplayMatrix.cs" t="Include" />
           <e p="DisplayTrace.cs" t="Include" />
+          <e p="LoadFromFile.cs" t="Include" />
           <e p="MatrixList.cs" t="Include" />
           <e p="MultiplyMatrix.cs" t="Include" />
+          <e p="MultiplyMatrixByNumber.cs" t="Include" />
+          <e p="SaveToFile.cs" t="Include" />
           <e p="SubMatrix.cs" t="Include" />
           <e p="SumMatrix.cs" t="Include" />
         </e>
         <e p="ICommand.cs" t="Include" />
         <e p="Linalg" t="Include">
+          <e p="CellValueException.cs" t="Include" />
           <e p="InvalidMatrixSizeException.cs" t="Include" />
           <e p="Matrix.cs" t="Include" />
           <e p="MatrixProductionException.cs" t="Include" />

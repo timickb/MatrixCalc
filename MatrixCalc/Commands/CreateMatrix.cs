@@ -27,7 +27,7 @@ namespace MatrixCalc.Commands
                     case "1":
                         try
                         {
-                            Matrix.Matrices.Add(name, new Matrix(m, n, MatrixType.Eye));
+                            Matrix.Storage.Add(name, new Matrix(m, n, MatrixType.Eye));
                             return $"Матрица {name} успешно создана!";
                         }
                         catch (NonSquareMatrixException)
@@ -37,7 +37,7 @@ namespace MatrixCalc.Commands
                             continue;
                         } 
                     case "2":
-                        Matrix.Matrices.Add(name, new Matrix(m, n, MatrixType.Zeros));
+                        Matrix.Storage.Add(name, new Matrix(m, n, MatrixType.Zeros));
                         return $"Матрица {name} успешно создана!";
                     case "3":
                         Console.Write("Введите вещественное или целое число: ");
@@ -48,13 +48,13 @@ namespace MatrixCalc.Commands
                             Console.WriteLine("Это не число. Попробуйте еще раз.");
                             continue;
                         }
-                        Matrix.Matrices.Add(name, new Matrix(m, n, value));
+                        Matrix.Storage.Add(name, new Matrix(m, n, value));
                         return $"Матрица {name} успешно создана!";
                     case "4":
-                        Matrix.Matrices.Add(name, new Matrix(m, n, MatrixType.RandomInt));
+                        Matrix.Storage.Add(name, new Matrix(m, n, MatrixType.RandomInt));
                         return $"Матрица {name} успешно создана!";
                     case "5":
-                        Matrix.Matrices.Add(name, new Matrix(m, n, MatrixType.Random));
+                        Matrix.Storage.Add(name, new Matrix(m, n, MatrixType.Random));
                         return $"Матрица {name} успешно создана!";
                     case "6":
                         return RequestMatrix(m, n, name);
@@ -85,7 +85,7 @@ namespace MatrixCalc.Commands
                 }
             }
             // Если все успешно - создаем матрицу.
-            Matrix.Matrices.Add(name, new Matrix(matrix));
+            Matrix.Storage.Add(name, new Matrix(matrix));
             return $"Матрица {name} успешно создана!";
         }
 
@@ -115,7 +115,7 @@ namespace MatrixCalc.Commands
                         "содержать никаких символов помимо цифр и латинких букв.";
                 }
 
-                if (Matrix.Matrices.ContainsKey(args[3]))
+                if (Matrix.Storage.ContainsKey(args[3]))
                 {
                     return $"Матрица с именем {args[3]} уже существует. Попробуйте другие имя.";
                 }
@@ -125,7 +125,7 @@ namespace MatrixCalc.Commands
             else
             {
                 // Если пользователь не указал имя, задаем имя по умолчанию.
-                name = "matrix" + Convert.ToString(Matrix.Matrices.Count + 1);
+                name = "matrix" + Convert.ToString(Matrix.Storage.Count + 1);
             }
             Console.WriteLine("Выберите опцию для создания матрицы: ");
             Console.WriteLine("1). Единичная матрица");

@@ -12,14 +12,14 @@ namespace MatrixCalc.Commands
         public string Name { get; set; }
         public string Run(string[] args)
         {
-            if (Matrix.Matrices.Count == 0)
+            if (Matrix.Storage.Count == 0)
             {
                 return "На данный момент матрицы в системе отсутствуют. Вы можете создать матрицу " +
                        "командой create или загрузить ее из файла командой load.";
             }
-            Console.WriteLine($"На данный момент в системе существует {Matrix.Matrices.Count} матриц:");
+            Console.WriteLine($"На данный момент в системе существует {Matrix.Storage.Count} матриц:");
             // Просто выводим список матриц в формате name [m x n].
-            foreach (var m in Matrix.Matrices)
+            foreach (var m in Matrix.Storage)
             {
                 Console.WriteLine($"-> {m.Key} [{m.Value.RowsAmount} x {m.Value.ColsAmount}]");
             }

@@ -3,37 +3,30 @@ using MatrixCalc.Linalg;
 
 namespace MatrixCalc.Commands
 {
-    public class MultiplyMatrix : ICommand
+    public class MultiplyMatrixByNumber : ICommand
     {
-        public MultiplyMatrix(string name)
+        public MultiplyMatrixByNumber(string name)
         {
             Name = name;
         }
+
         public string Name { get; set; }
+
         public string Run(string[] args)
         {
             if (args.Length < 3)
             {
-                return "Использование: mul <matrix1_name> <matrix2_name>";
+                return "Использование: mul <matrix1_name> <decimal_number> [output_name]";
             }
 
-            var name1 = args[1];
-            var name2 = args[2];
-            if (!Matrix.Storage.ContainsKey(name1))
+            if (!Matrix.Storage.ContainsKey(args[1]))
             {
-                return $"Матрицы {name1} не существует.";
+                return $"Матрицы {args[1]} не существует.";
             }
 
-            if (!Matrix.Storage.ContainsKey(name2))
+            if (decimal.TryParse(args[2], out var number))
             {
-                return $"Матрицы {name2} не существует.";
-            }
-
-            var m1 = Matrix.Storage[name1];
-            var m2 = Matrix.Storage[name2];
-            try
-            {
-                var result = m1 * m2;
+                var result = Matrix.Storage[args[1]] * number;
                 // Если указано имя для сохранения полученной матрицы - обработаем это.
                 if (args.Length == 4)
                 {
@@ -48,16 +41,13 @@ namespace MatrixCalc.Commands
                     }
                     // Если все ок - кладем в список матрицу result.
                     Matrix.Storage.Add(args[3], result);
-                    return $"Матрицы перемножены, результатом является новая матрица {args[3]}";
+                    return $"Матрица умножена на {number}, результатом является новая матрица {args[3]}";
                 }
                 result.Display();
                 return string.Empty;
             }
-            catch (MatrixProductionException)
-            {
-                return "Количество столбцов первой матрицы не совпадает с количеством строк второй.";
-            }
 
+            return "Второй аргумент должен быть вещественным числом.";
         }
     }
 }

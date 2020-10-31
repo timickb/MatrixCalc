@@ -9,20 +9,30 @@ namespace MatrixCalc.Linalg
         /// Хранилище всех матриц, созданных пользователем.
         /// Ключ в этом словаре - это имя матрицы, которое задал пользователь.
         /// </summary>
-        public static Dictionary<string, Matrix> Matrices = new Dictionary<string, Matrix>();
+        public static Dictionary<string, Matrix> Storage = new Dictionary<string, Matrix>();
+        
+        /// <summary>
+        /// Максимально допустимое число строк/столбцов в матрице.
+        /// </summary>
+        public static int MaxDimensionSize { get; } = 20;
+
+        /// <summary>
+        /// Максимальное допустимое по модулю число, которое может находиться в ячейке матрицы.
+        /// </summary>
+        public static int MaxAbsValue { get; } = 8000;
 
         /// <summary>
         /// Нижняя граница для генератора рандомных чисел.
         /// По умолчанию -1000.
         /// </summary>
-        public static int LowerRandomBound { get; set; } = -100;
+        public static int LowerRandomBound { get; } = -100;
 
         /// <summary>
         /// Верхняя граница для генератора рандомных чисел.
         /// По умолчанию 1000
         /// (сама граница в диапазон не включается).
         /// </summary>
-        public static int UpperRandomBound { get; set; } = 100;
+        public static int UpperRandomBound { get; } = 100;
 
 
         // Этот двумерный массив - сама матрица.
@@ -137,7 +147,7 @@ namespace MatrixCalc.Linalg
         /// не является квадратной, а запрашиваемый тип требует, чтобы она ей являлась.</exception>
         public Matrix(int m, int n, MatrixType type)
         {
-            if (m <= 0 || n <= 0)
+            if (m <= 0 || n <= 0 || m > MaxDimensionSize || n > MaxDimensionSize)
             {
                 throw new InvalidMatrixSizeException();
             }
@@ -184,9 +194,14 @@ namespace MatrixCalc.Linalg
         /// число строк или число столбцов матрицы не является положительным числом.</exception>
         public Matrix(int m, int n, decimal value)
         {
-            if (m <= 0 || n <= 0)
+            if (m <= 0 || n <= 0 || m > MaxDimensionSize || n > MaxDimensionSize)
             {
                 throw new InvalidMatrixSizeException();
+            }
+
+            if (Math.Abs(value) > MaxAbsValue)
+            {
+                throw new CellValueException();
             }
 
             _values = new decimal[m, n];
@@ -577,6 +592,8 @@ namespace MatrixCalc.Linalg
         /// </summary>
         /// <exception cref="NonSquareMatrixException">Исключение выбрасывается, когда
         /// данная матрица не является квадратной.</exception>
+        /// <exception cref="OverflowException">Исключение выбрасывается, когда
+        /// произведение на диагонали не вмещается в тип decimal.</exception>
         private decimal MainDiagonalProduction
         {
             get
@@ -587,9 +604,49 @@ namespace MatrixCalc.Linalg
                 }
 
                 var prod = Decimal.One;
-                for (var i = 0; i < ColsAmount; i++)
+                try
                 {
-                    prod *= _triang[i, i];
+                    for (var i = 0; i < ColsAmount; i++)
+                    {
+                        prod *= _triang[i, i];
+                    }
+                }
+                catch (OverflowException)
+                {
+                    throw new OverflowException();
+                }
+
+                return prod;
+            }
+        }
+        
+        /// <summary>
+        /// Считает произведение элементов на диагонали,
+        /// предварительно округлив каждый из них
+        /// до целого числа.
+        /// </summary>
+        /// <exception cref="NonSquareMatrixException">Исключение выбрасывается, когда
+        /// данная матрица не является квадратной.</exception>
+        private long IntMainDiagonalProduction
+        {
+            get
+            {
+                if (ColsAmount != RowsAmount)
+                {
+                    throw new NonSquareMatrixException();
+                }
+
+                var prod = 1L;
+                try
+                {
+                    for (var i = 0; i < ColsAmount; i++)
+                    {
+                        prod *= Convert.ToInt64(Math.Round(_triang[i, i]));
+                    }
+                }
+                catch (OverflowException)
+                {
+                    throw new OverflowException();
                 }
 
                 return prod;
@@ -615,12 +672,19 @@ namespace MatrixCalc.Linalg
                     throw new NonSquareMatrixException();
                 }
 
-                return ColsAmount switch
+                try
                 {
-                    1 => _values[0, 0],
-                    2 => _values[0, 0] * _values[1, 1] - _values[0, 1] * _values[1, 0],
-                    _ => MainDiagonalProduction
-                };
+                    return ColsAmount switch
+                    {
+                        1 => _values[0, 0],
+                        2 => _values[0, 0] * _values[1, 1] - _values[0, 1] * _values[1, 0],
+                        _ => MainDiagonalProduction
+                    };
+                }
+                catch (OverflowException)
+                {
+                    return IntMainDiagonalProduction;
+                }
             }
         }
     }

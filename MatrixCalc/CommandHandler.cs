@@ -12,15 +12,18 @@ namespace MatrixCalc
         public CommandHandler()
         {
             commands = new List<ICommand>();
-            // Инициализируем все доступные нам команды.
+            // Инициализируем все доступные пользователю команды.
             commands.Add(new CreateMatrix("create"));
             commands.Add(new DisplayMatrix("display"));
             commands.Add(new MatrixList("list"));
             commands.Add(new DisplayDet("det"));
             commands.Add(new DisplayTrace("trace"));
             commands.Add(new MultiplyMatrix("mul"));
+            commands.Add(new MultiplyMatrixByNumber("muln"));
             commands.Add(new SumMatrix("add"));
             commands.Add(new SubMatrix("sub"));
+            commands.Add(new LoadFromFile("load"));
+            commands.Add(new SaveToFile("save"));
         }
         
         /// <summary>
