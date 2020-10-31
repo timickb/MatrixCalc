@@ -287,7 +287,7 @@ namespace MatrixCalc.Linalg
         /// <returns>значение элемента с индексом (i, j)</returns>
         /// <exception cref="IndexOutOfRangeException">Исключение выбрасывается, когда
         /// в матрице не существует элемента с индексом (i, j).</exception>
-        private decimal GetValueAt(int i, int j)
+        public decimal GetValueAt(int i, int j)
         {
             try
             {
