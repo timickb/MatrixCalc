@@ -1,9 +1,15 @@
 using System;
+using System.Globalization;
 
 namespace MatrixCalc
 {
     public static class Utils
     {
+        /// <summary>
+        /// Проверяет имя матрицы на соответствие правилам.
+        /// </summary>
+        /// <param name="name">имя матрицы</param>
+        /// <returns>статус соответствия правилам</returns>
         public static bool IsMatrixNameCorrect(string name)
         {
             char firstSymbol = name[0];
@@ -24,6 +30,23 @@ namespace MatrixCalc
             }
 
             return true;
+        }
+        
+        /// <summary>
+        /// В зависимости от региональных настроек заменяет в строковом
+        /// представлении вещественного числа точку на запятую или наоборот.
+        /// </summary>
+        /// <param name="word">вещественное число в строковом представлении</param>
+        /// <returns>пропатченная строка</returns>
+        public static string PrepareDecimal(string word)
+        {
+            var sep = NumberFormatInfo.CurrentInfo.NumberDecimalSeparator;
+            if (sep == ".")
+            {
+                return word.Replace(",", ".");
+            }
+
+            return word.Replace(".", ",");
         }
     }
 }

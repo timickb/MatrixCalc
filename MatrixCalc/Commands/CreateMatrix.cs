@@ -24,6 +24,7 @@ namespace MatrixCalc.Commands
                 {
                     case "0":
                         return String.Empty;
+                    // Создание единичной матрицы.
                     case "1":
                         try
                         {
@@ -35,10 +36,28 @@ namespace MatrixCalc.Commands
                             Console.WriteLine("Матрица должна быть квадратной. Попробуйте другую опцию, " +
                                               "либо выйдите и введите команду заново с корректными данными.");
                             continue;
-                        } 
+                        }
+                        catch (InvalidMatrixSizeException)
+                        {
+                            Console.WriteLine(
+                                $"Количество строк и столбцов должно быть в пределах от 1 до {Matrix.MaxDimensionSize}");
+                            continue;
+                        }
+                    // Создание нулевой матрицы.    
                     case "2":
-                        Matrix.Storage.Add(name, new Matrix(m, n, MatrixType.Zeros));
+                        try
+                        {
+                            Matrix.Storage.Add(name, new Matrix(m, n, MatrixType.Zeros));
+                        }
+                        catch (InvalidMatrixSizeException)
+                        {
+                            Console.WriteLine(
+                                $"Количество строк и столбцов должно быть в пределах от 1 до {Matrix.MaxDimensionSize}");
+                            continue;
+                        }
+
                         return $"Матрица {name} успешно создана!";
+                    // Создание матрицы из одинаковых чисел.
                     case "3":
                         Console.Write("Введите вещественное или целое число: ");
                         var inputNumber = Console.ReadLine();
@@ -48,14 +67,53 @@ namespace MatrixCalc.Commands
                             Console.WriteLine("Это не число. Попробуйте еще раз.");
                             continue;
                         }
-                        Matrix.Storage.Add(name, new Matrix(m, n, value));
+
+                        try
+                        {
+                            Matrix.Storage.Add(name, new Matrix(m, n, value));
+                        }
+                        catch (InvalidMatrixSizeException)
+                        {
+                            Console.WriteLine(
+                                $"Количество строк и столбцов должно быть в пределах от 1 до {Matrix.MaxDimensionSize}");
+                            continue;
+                        }
+                        catch (CellValueException)
+                        {
+                            Console.WriteLine(
+                                $"Значение в ячейке не должно превосходить {Matrix.MaxAbsValue} по модулю.");
+                        }
+
                         return $"Матрица {name} успешно создана!";
+                    // Создание матрицы из рандомных целых чисел.
                     case "4":
-                        Matrix.Storage.Add(name, new Matrix(m, n, MatrixType.RandomInt));
+                        try
+                        {
+                            Matrix.Storage.Add(name, new Matrix(m, n, MatrixType.RandomInt));
+                        }
+                        catch (InvalidMatrixSizeException)
+                        {
+                            Console.WriteLine(
+                                $"Количество строк и столбцов должно быть в пределах от 1 до {Matrix.MaxDimensionSize}");
+                            continue;
+                        }
+
                         return $"Матрица {name} успешно создана!";
+                    // Создание матрицы из рандомных вещественных чисел.
                     case "5":
-                        Matrix.Storage.Add(name, new Matrix(m, n, MatrixType.Random));
+                        try
+                        {
+                            Matrix.Storage.Add(name, new Matrix(m, n, MatrixType.Random));
+                        }
+                        catch (InvalidMatrixSizeException)
+                        {
+                            Console.WriteLine(
+                                $"Количество строк и столбцов должно быть в пределах от 1 до {Matrix.MaxDimensionSize}");
+                            continue;
+                        }
+
                         return $"Матрица {name} успешно создана!";
+                    // Создание произвольной матрицы.
                     case "6":
                         return RequestMatrix(m, n, name);
                 }
@@ -75,6 +133,7 @@ namespace MatrixCalc.Commands
                 {
                     return "Не удалось создать матрицу: неверное количество чисел в строке.";
                 }
+
                 // Проверим, что каждая сущность ней - вещественное число.
                 for (var j = 0; j < n; j++)
                 {
@@ -84,8 +143,22 @@ namespace MatrixCalc.Commands
                     }
                 }
             }
+
             // Если все успешно - создаем матрицу.
-            Matrix.Storage.Add(name, new Matrix(matrix));
+            try
+            {
+                Matrix.Storage.Add(name, new Matrix(matrix));
+            }
+            catch (InvalidMatrixSizeException)
+            {
+                return
+                    $"Количество строк и столбцов должно быть в пределах от 1 до {Matrix.MaxDimensionSize}";
+            }
+            catch (CellValueException)
+            {
+                return $"Одно из значений в матрице по модулю превышает {Matrix.MaxAbsValue}";
+            }
+
             return $"Матрица {name} успешно создана!";
         }
 
@@ -127,6 +200,7 @@ namespace MatrixCalc.Commands
                 // Если пользователь не указал имя, задаем имя по умолчанию.
                 name = "matrix" + Convert.ToString(Matrix.Storage.Count + 1);
             }
+
             Console.WriteLine("Выберите опцию для создания матрицы: ");
             Console.WriteLine("1). Единичная матрица");
             Console.WriteLine("2). Нулевая матрица");

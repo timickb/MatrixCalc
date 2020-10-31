@@ -10,6 +10,7 @@
           <e p="CreateMatrix.cs" t="Include" />
           <e p="DisplayDet.cs" t="Include" />
           <e p="DisplayMatrix.cs" t="Include" />
+          <e p="DisplayRank.cs" t="Include" />
           <e p="DisplayTrace.cs" t="Include" />
           <e p="LoadFromFile.cs" t="Include" />
           <e p="MatrixList.cs" t="Include" />

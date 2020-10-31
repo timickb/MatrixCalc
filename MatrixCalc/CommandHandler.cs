@@ -24,6 +24,7 @@ namespace MatrixCalc
             commands.Add(new SubMatrix("sub"));
             commands.Add(new LoadFromFile("load"));
             commands.Add(new SaveToFile("save"));
+            commands.Add(new DisplayRank("rank"));
         }
         
         /// <summary>
@@ -47,6 +48,7 @@ namespace MatrixCalc
                 return "Bye!" + Environment.NewLine;
             }
 
+            Console.ForegroundColor = ConsoleColor.Yellow;
             return "Unknown command. Type \"help\" to get a list of available commands.";
         }
     }

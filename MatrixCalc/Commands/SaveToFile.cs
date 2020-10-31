@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using MatrixCalc.Linalg;
 
 namespace MatrixCalc.Commands
@@ -15,12 +16,25 @@ namespace MatrixCalc.Commands
         {
             if (args.Length < 3)
             {
-                return "Использование: save <matrix_name> <path_to_file>";
+                return "Использование: save <matrix_name> <path_to_dir>";
             }
 
             if (!Matrix.Storage.ContainsKey(args[1]))
             {
                 return $"Матрицы {args[1]} не существует.";
+            }
+
+            try
+            {
+                var path = Path.GetFullPath(args[2]);
+            }
+            catch (ArgumentException)
+            {
+                return "Некорректный путь к директории.";
+            }
+            catch (PathTooLongException)
+            {
+                return "Путь к директории слишком длинный.";
             }
 
             return "";

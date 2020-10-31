@@ -7,9 +7,9 @@ namespace MatrixCalc
         public static string EXIT_COMMAND = "exit";
         static void Main(string[] args)
         {
-            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("==> Калькулятор матриц <==");
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("Введите help для получения инструкции.");
             var handler = new CommandHandler();
             

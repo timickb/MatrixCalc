@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 
 namespace MatrixCalc.Linalg
 {
@@ -43,6 +44,7 @@ namespace MatrixCalc.Linalg
 
         public int RowsAmount => _values.GetLength(0);
         public int ColsAmount => _values.GetLength(1);
+        public int Rank { get; private set; }
 
         /* Делает матрицу единичной. Если матрица не квадратная, ничего не делает.
          (обработка исключительной ситуации происходит в конструкторе). */
@@ -126,6 +128,10 @@ namespace MatrixCalc.Linalg
             {
                 for (var j = 0; j < n; j++)
                 {
+                    if (Math.Abs(arr[i, j]) > MaxAbsValue)
+                    {
+                        throw new CellValueException();
+                    }
                     _values[i, j] = arr[i, j];
                 }
             }
@@ -584,6 +590,25 @@ namespace MatrixCalc.Linalg
 
                 i++;
                 j++;
+            }
+            // Посчитаем ранг матрицы.
+            Rank = RowsAmount;
+            for (var i1 = 0; i1 < RowsAmount; i1++)
+            {
+                bool zero = true;
+                for (var j1 = 0; j1 < ColsAmount; j1++)
+                {
+                    if (_triang[i1, j1] != 0)
+                    {
+                        zero = false;
+                        break;
+                    }
+                }
+
+                if (zero)
+                {
+                    Rank--;
+                }
             }
         }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.IO;
 using MatrixCalc.Linalg;
 
@@ -24,6 +25,7 @@ namespace MatrixCalc.Commands
                 var matrix = new decimal[m, n];
                 var i = 0;
                 var j = 0;
+                
                 foreach (var line in lines)
                 {
                     var words = line.Split();
@@ -35,7 +37,7 @@ namespace MatrixCalc.Commands
                     j = 0;
                     foreach (var word in words)
                     {
-                        if (!decimal.TryParse(word, out matrix[i, j]))
+                        if (!decimal.TryParse(Utils.PrepareDecimal(word), out matrix[i, j]))
                         {
                             return "Некорректный формат файла: Некоторые значения в файле не являются вещественными числами.";
                         }
@@ -46,8 +48,25 @@ namespace MatrixCalc.Commands
                     i++;
                 }
                 // Кладем матрицу в список матриц, присвоив ей имя, равное имени файла.
-                Matrix.Storage.Add(Path.GetFileNameWithoutExtension(path), new Matrix(matrix));
-                return $"Матрица {Path.GetFileNameWithoutExtension(path)} успешно создана!";
+                var name = Path.GetFileNameWithoutExtension(path);
+                if (Matrix.Storage.ContainsKey(name))
+                {
+                    return $"Ошибка: матрица с таким именем уже существует. Попробуйте переименовать файл.";
+                }
+                try
+                {
+                    Matrix.Storage.Add(name, new Matrix(matrix));
+                }
+                catch (InvalidMatrixSizeException)
+                {
+                    return $"Ошибка: размер одного из измерений данной матрицы превышает {Matrix.MaxDimensionSize}";
+                }
+                catch (CellValueException)
+                {
+                    return $"Ошибка: одно из значений в матрице превышает по модулю {Matrix.MaxAbsValue}";
+                }
+
+                return $"Матрица {name} успешно загружена!";
             }
             catch (IOException)
             {
@@ -65,12 +84,7 @@ namespace MatrixCalc.Commands
             try
             {
                 var path = Path.GetFullPath(args[1]);
-                if (!File.Exists(path))
-                {
-                    return "Этого файла не существует.";
-                }
-
-                return ParseFile(path);
+                return !File.Exists(path) ? "Этого файла не существует." : ParseFile(path);
             }
             catch (ArgumentException)
             {
