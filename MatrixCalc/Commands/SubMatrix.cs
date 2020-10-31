@@ -4,12 +4,13 @@ namespace MatrixCalc.Commands
 {
     public class SubMatrix : ICommand
     {
-
         public SubMatrix(string name)
         {
             Name = name;
         }
+
         public string Name { get; set; }
+
         public string Run(string[] args)
         {
             if (args.Length < 3)
@@ -46,10 +47,12 @@ namespace MatrixCalc.Commands
                     {
                         return $"Матрица с именем {args[3]} уже существует.";
                     }
+
                     // Если все ок - кладем в список матрицу result.
                     Matrix.Storage.Add(args[3], result);
                     return $"Матрицы просуммированы, результатом является новая матрица {args[3]}";
                 }
+
                 result.Display();
                 return string.Empty;
             }
@@ -57,7 +60,11 @@ namespace MatrixCalc.Commands
             {
                 return "Размеры данных матриц не совпадают.";
             }
-
+            catch (CellValueException)
+            {
+                return "К сожалению, данная операция не может быть выполнена в силу того, что в ее" +
+                       $" результате получится число, превышающее по модулю {Matrix.MaxAbsValue}";
+            }
         }
     }
 }

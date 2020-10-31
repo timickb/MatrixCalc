@@ -15,25 +15,25 @@ namespace MatrixCalc.Linalg
         /// <summary>
         /// Максимально допустимое число строк/столбцов в матрице.
         /// </summary>
-        public static int MaxDimensionSize { get; } = 20;
+        public static int MaxDimensionSize { get; set; } = 20;
 
         /// <summary>
         /// Максимальное допустимое по модулю число, которое может находиться в ячейке матрицы.
         /// </summary>
-        public static int MaxAbsValue { get; } = 8000;
+        public static int MaxAbsValue { get; set; } = 99999;
 
         /// <summary>
         /// Нижняя граница для генератора рандомных чисел.
-        /// По умолчанию -1000.
+        /// По умолчанию -100.
         /// </summary>
-        public static int LowerRandomBound { get; } = -100;
+        public static int LowerRandomBound { get; set; } = -100;
 
         /// <summary>
         /// Верхняя граница для генератора рандомных чисел.
-        /// По умолчанию 1000
+        /// По умолчанию 100
         /// (сама граница в диапазон не включается).
         /// </summary>
-        public static int UpperRandomBound { get; } = 100;
+        public static int UpperRandomBound { get; set; } = 100;
 
 
         // Этот двумерный массив - сама матрица.
@@ -227,7 +227,7 @@ namespace MatrixCalc.Linalg
                 for (var j = 0; j < ColsAmount; j++)
                 {
                     var val = Math.Round(decimal.ToDouble(_values[i, j]), 2);
-                    Console.Write("{0,7}", val);
+                    Console.Write("{0,10}", val);
                 }
 
                 Console.Write(" |");
@@ -249,7 +249,7 @@ namespace MatrixCalc.Linalg
                 for (var j = 0; j < ColsAmount; j++)
                 {
                     var val = Math.Round(decimal.ToDouble(_triang[i, j]), 3);
-                    Console.Write("{0,7}", val);
+                    Console.Write("{0,10}", val);
                 }
 
                 Console.Write(" |");
@@ -354,6 +354,9 @@ namespace MatrixCalc.Linalg
         /// <returns>Матрица, являющаяся суммой m1 и m2.</returns>
         /// <exception cref="MatrixSummationException">Исключение выбрасывается, когда
         /// размеры матриц m1 и m2 не совпадают.</exception>
+        /// <exception cref="CellValueException">Исключение выбрасывается, когда
+        /// в результате сложения в какой-то ячейке оказывается число, по модулю
+        /// превышающее MaxAbsValue.</exception>
         public static Matrix operator +(Matrix m1, Matrix m2)
         {
             if (m1.ColsAmount != m2.ColsAmount || m1.RowsAmount != m2.RowsAmount)
@@ -366,7 +369,12 @@ namespace MatrixCalc.Linalg
             {
                 for (var j = 0; j < m1.ColsAmount; j++)
                 {
-                    sum.SetValueAt(i, j, m1.GetValueAt(i, j) + m2.GetValueAt(i, j));
+                    var element = m1.GetValueAt(i, j) + m2.GetValueAt(i, j);
+                    if (Math.Abs(element) > MaxAbsValue)
+                    {
+                        throw new CellValueException();
+                    }
+                    sum.SetValueAt(i, j, element);
                 }
             }
 
@@ -381,6 +389,9 @@ namespace MatrixCalc.Linalg
         /// <returns>Матрица, являющаяся разностью m1 и m2.</returns>
         /// <exception cref="MatrixSummationException">Исключение выбрасывается, когда
         /// размеры матриц m1 и m2 не совпадают.</exception>
+        /// <exception cref="CellValueException">Исключение выбрасывается, когда
+        /// в результате сложения в какой-то ячейке оказывается число, по модулю
+        /// превышающее MaxAbsValue.</exception>
         public static Matrix operator -(Matrix m1, Matrix m2)
         {
             if (m1.ColsAmount != m2.ColsAmount || m1.RowsAmount != m2.RowsAmount)
@@ -405,6 +416,9 @@ namespace MatrixCalc.Linalg
         /// </summary>
         /// <param name="m">произвольная матрица</param>
         /// <param name="c">вещественное число</param>
+        /// <exception cref="CellValueException">Исключение выбрасывается, когда
+        /// в результате сложения в какой-то ячейке оказывается число, по модулю
+        /// превышающее MaxAbsValue.</exception>
         /// <returns>Матрица n, где n(i, j) = c * m(i, j)</returns>
         public static Matrix operator *(Matrix m, decimal c)
         {
@@ -413,6 +427,10 @@ namespace MatrixCalc.Linalg
             {
                 for (var j = 0; j < m.ColsAmount; j++)
                 {
+                    if (Math.Abs(m.GetValueAt(i, j) * c) > MaxAbsValue)
+                    {
+                        throw new CellValueException();
+                    }
                     result.SetValueAt(i, j, m.GetValueAt(i, j) * c);
                 }
             }
@@ -428,6 +446,9 @@ namespace MatrixCalc.Linalg
         /// <returns>Матрица размера m1.RowsAmount, m2.ColsAmount</returns>
         /// <exception cref="MatrixProductionException">Исключение выбрасывается, когда
         /// количество столбцов матрицы m1 не совпадает с количеством строк матрицы m2.</exception>
+        /// <exception cref="CellValueException">Исключение выбрасывается, когда
+        /// в результате сложения в какой-то ячейке оказывается число, по модулю
+        /// превышающее MaxAbsValue.</exception>
         public static Matrix operator *(Matrix m1, Matrix m2)
         {
             if (m1.ColsAmount != m2.RowsAmount)
@@ -447,6 +468,10 @@ namespace MatrixCalc.Linalg
                         sum += m1.GetValueAt(i, k) * m2.GetValueAt(k, j);
                     }
 
+                    if (Math.Abs(sum) > MaxAbsValue)
+                    {
+                        throw new CellValueException();
+                    }
                     prod.SetValueAt(i, j, sum);
                 }
             }

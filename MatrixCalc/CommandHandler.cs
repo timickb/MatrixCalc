@@ -26,6 +26,8 @@ namespace MatrixCalc
             commands.Add(new SaveToFile("save"));
             commands.Add(new DisplayRank("rank"));
             commands.Add(new Help("help"));
+            commands.Add(new ChangeRandomBounds("setrnd"));
+            commands.Add(new TransposeMatrix("trans"));
         }
         
         /// <summary>

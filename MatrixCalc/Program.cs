@@ -7,10 +7,11 @@ namespace MatrixCalc
         public static string EXIT_COMMAND = "exit";
         static void Main(string[] args)
         {
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("==> Калькулятор матриц <==");
-            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Введите help для получения инструкции.");
+            Console.WriteLine("Введите create для создания новой матрицы.");
             var handler = new CommandHandler();
             
             string userInput;
