@@ -226,7 +226,7 @@ namespace MatrixCalc.Linalg
                 Console.Write("| ");
                 for (var j = 0; j < ColsAmount; j++)
                 {
-                    var val = Math.Round(decimal.ToDouble(_values[i, j]), 3);
+                    var val = Math.Round(decimal.ToDouble(_values[i, j]), 2);
                     Console.Write("{0,7}", val);
                 }
 

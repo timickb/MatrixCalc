@@ -21,6 +21,7 @@
           <e p="SubMatrix.cs" t="Include" />
           <e p="SumMatrix.cs" t="Include" />
         </e>
+        <e p="Help.cs" t="Include" />
         <e p="ICommand.cs" t="Include" />
         <e p="Linalg" t="Include">
           <e p="CellValueException.cs" t="Include" />

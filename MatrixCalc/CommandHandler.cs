@@ -25,6 +25,7 @@ namespace MatrixCalc
             commands.Add(new LoadFromFile("load"));
             commands.Add(new SaveToFile("save"));
             commands.Add(new DisplayRank("rank"));
+            commands.Add(new Help("help"));
         }
         
         /// <summary>
