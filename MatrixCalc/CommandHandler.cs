@@ -28,6 +28,7 @@ namespace MatrixCalc
             commands.Add(new Help("help"));
             commands.Add(new ChangeRandomBounds("setrnd"));
             commands.Add(new TransposeMatrix("trans"));
+            commands.Add(new SolveEquation("solve"));
         }
         
         /// <summary>

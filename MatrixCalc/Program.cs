@@ -2,6 +2,9 @@
 
 namespace MatrixCalc
 {
+    /// <summary>
+    /// Матричный калькулятор.
+    /// </summary>
     class Program
     {
         public static string EXIT_COMMAND = "exit";
@@ -12,14 +15,17 @@ namespace MatrixCalc
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Введите help для получения инструкции.");
             Console.WriteLine("Введите create для создания новой матрицы.");
-            var handler = new CommandHandler();
             
+            // Основной цикл программы. Запрос ввода команды от пользователя.
+            var handler = new CommandHandler();
             string userInput;
             do
             {
                 Console.ForegroundColor = ConsoleColor.Gray;
                 Console.Write("> ");
                 userInput = Console.ReadLine();
+                // Отправляем то, что ввел пользователь, обработчику команд
+                // и возвращаем результат.
                 Console.WriteLine(handler.Execute(userInput));
             } while (userInput != EXIT_COMMAND);
 

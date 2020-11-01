@@ -3,6 +3,10 @@ using System.Globalization;
 
 namespace MatrixCalc
 {
+    /// <summary>
+    /// Просто набор статических методов, которые
+    /// могут быть полезны в разных ситуациях.
+    /// </summary>
     public static class Utils
     {
         /// <summary>

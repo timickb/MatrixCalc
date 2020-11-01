@@ -1,7 +1,7 @@
 ﻿using System;
 using MatrixCalc.Linalg;
 
-namespace MatrixCalc
+namespace MatrixCalc.Commands
 {
     public class Help : ICommand
     {
@@ -51,6 +51,8 @@ namespace MatrixCalc
                     sep;
             text += "-> trans <matrix_name> [output_name] - аналогично, транспонирование матрицы." + sep;
             text += "-> muln <matrix1_name> <number> [output_name] - аналогично, умножение матрицы на скаляр. " + sep;
+            text += "-> solve <matirx_name> - решить СЛАУ AX = B, где X - матрица matrix_name, а B - вектор свободных " +
+                    "коэффициентов, который будет необходимо ввести вручную." + sep;
 
             return text;
         }

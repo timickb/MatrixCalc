@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Linq.Expressions;
 
 namespace MatrixCalc.Linalg
 {
@@ -321,6 +322,53 @@ namespace MatrixCalc.Linalg
 
                 return trace;
             }
+        }
+        
+        /// <summary>
+        /// Решает СЛАУ AX = b, где
+        /// A - данная матрица, b - вектор
+        /// коэффициентов, передающийся в
+        /// качестве аргумента.
+        /// </summary>
+        /// <param name="b">Массив коэффициентов. Его длина должна
+        /// равняться количеству столбцов в данной матрице.</param>
+        /// <returns>Вектор X0 - решение СЛАУ.</returns>
+        public decimal[] SolveEquationSystem(decimal[] b)
+        {
+            if (b.Length != ColsAmount)
+            {
+                throw new InvalidMatrixSizeException();
+            }
+
+            var x0 = new decimal[ColsAmount];
+            try
+            {
+                // Идем по строкам верхнетреугольной матрицы с конца.
+                for (var i = RowsAmount - 1; i >= 0; i--)
+                {
+                    // Возьмем первый ненулевой элемент
+                    for (var j = 0; j < ColsAmount; j++)
+                    {
+                        if (_triang[i, j] != Decimal.Zero)
+                        {
+                            var tail = Decimal.Zero;
+                            for (var k = j + 1; k < ColsAmount; k++)
+                            {
+                                tail += b[k] * _triang[i, k];
+                            }
+
+                            x0[j] = ((b[j] - tail) / _triang[i, j]);
+                        }
+
+                    }
+                }
+            }
+            catch (OverflowException)
+            {
+                throw new OverflowException();
+            }
+
+            return x0;
         }
 
         /// <summary>
