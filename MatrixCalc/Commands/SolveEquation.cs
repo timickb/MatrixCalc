@@ -38,8 +38,25 @@ namespace MatrixCalc.Commands
                 }
             }
 
-            var x0 = Matrix.Storage[args[1]].SolveEquationSystem(b);
-            return string.Join(" ", x0);
+            try
+            {
+                var kramer = new Kramer(Matrix.Storage[args[1]], b);
+                var x0 = kramer.GetSolution();
+                return $"Решение системы: {Environment.NewLine} {string.Join(", ", x0)}";
+                
+            }
+            catch (KramerException)
+            {
+                return "Система не имеет решений.";
+            }
+            catch (InvalidMatrixSizeException)
+            {
+                return "Матрица не является квадратной.";
+            }
+            catch (CellValueException)
+            {
+                return $"Одно из значений вектора свободных коэффициентов превышает по модулю {Matrix.MaxAbsValue}";
+            }
         }
     }
 }

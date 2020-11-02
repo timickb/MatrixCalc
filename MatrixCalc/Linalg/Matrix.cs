@@ -16,12 +16,12 @@ namespace MatrixCalc.Linalg
         /// <summary>
         /// Максимально допустимое число строк/столбцов в матрице.
         /// </summary>
-        public static int MaxDimensionSize { get; set; } = 20;
+        public static int MaxDimensionSize { get; set; } = 10;
 
         /// <summary>
         /// Максимальное допустимое по модулю число, которое может находиться в ячейке матрицы.
         /// </summary>
-        public static int MaxAbsValue { get; set; } = 99999;
+        public static int MaxAbsValue { get; set; } = 9999;
 
         /// <summary>
         /// Нижняя граница для генератора рандомных чисел.
@@ -324,52 +324,62 @@ namespace MatrixCalc.Linalg
             }
         }
         
+        /* Не успел(а) завершить этот код, но удалять жалко.
         /// <summary>
-        /// Решает СЛАУ AX = b, где
+        /// Решает СЛАУ AX = b методом Гаусса , где
         /// A - данная матрица, b - вектор
         /// коэффициентов, передающийся в
         /// качестве аргумента.
         /// </summary>
         /// <param name="b">Массив коэффициентов. Его длина должна
         /// равняться количеству столбцов в данной матрице.</param>
-        /// <returns>Вектор X0 - решение СЛАУ.</returns>
-        public decimal[] SolveEquationSystem(decimal[] b)
+        /// <returns>Пара "ключ-значение", где первый элемент - статус
+        /// результата, второй - вектор x0. Статусы:
+        /// 0 - СЛАУ имеет один корень,
+        /// 1 - СЛАУ имеет бесконечно много корней,
+        /// 2 - СЛАУ корней не имеет. </returns>
+        public KeyValuePair<int, decimal[]> SolveByGauss(decimal[] b)
         {
-            if (b.Length != ColsAmount)
+            var x0 = new decimal[RowsAmount];
+            if (b.Length != RowsAmount)
             {
-                throw new InvalidMatrixSizeException();
+                return new KeyValuePair<int, decimal[]>(-1, x0);
             }
-
-            var x0 = new decimal[ColsAmount];
-            try
+            // Идем по строкам верхнетреугольной матрицы снизу вверх.
+            for (var i = RowsAmount - 1; i >= 0; i--)
             {
-                // Идем по строкам верхнетреугольной матрицы с конца.
-                for (var i = RowsAmount - 1; i >= 0; i--)
+                // Идем по строке слева направо и находим первый ненулевой элемент.
+                int firstNonZeroIndex = -1;
+                for (var j = 0; j < ColsAmount; j++)
                 {
-                    // Возьмем первый ненулевой элемент
-                    for (var j = 0; j < ColsAmount; j++)
+                    if (_triang[i, j] != Decimal.Zero)
                     {
-                        if (_triang[i, j] != Decimal.Zero)
-                        {
-                            var tail = Decimal.Zero;
-                            for (var k = j + 1; k < ColsAmount; k++)
-                            {
-                                tail += b[k] * _triang[i, k];
-                            }
-
-                            x0[j] = ((b[j] - tail) / _triang[i, j]);
-                        }
-
+                        firstNonZeroIndex = j;
                     }
                 }
+                // Случай, когда вся строка нулевая.
+                if (firstNonZeroIndex == -1)
+                {
+                    // Нулевая строка равна чему-то ненулевому -> решений нет.
+                    if (b[firstNonZeroIndex] != Decimal.Zero)
+                    {
+                        return new KeyValuePair<int, decimal[]>(2, x0);
+                    }
+                    // Если b[j] тоже есть ноль, то просто пропускаем эту строку.
+                }
+                // Случай, когда "ступенька ровная" и можно однозначно выразить переменную.
+                if (firstNonZeroIndex == i)
+                {
+                    
+                }
+                // Случай, когда ступенька оказалась шире, чем одна ячейка -> решений бесконечно много.
+                else
+                {
+                    return new KeyValuePair<int, decimal[]>(1, x0);
+                }
             }
-            catch (OverflowException)
-            {
-                throw new OverflowException();
-            }
-
-            return x0;
         }
+        */
 
         /// <summary>
         /// Возвращает транспонированную по отношению к данной матрицу.

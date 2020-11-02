@@ -13,16 +13,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="98fec087-819a-4a73-978f-1946680e8d44" name="Default Changelist" comment="thirteenth commit">
-      <change afterPath="$PROJECT_DIR$/MatrixCalc/Commands/SolveEquation.cs" afterDir="false" />
+    <list default="true" id="98fec087-819a-4a73-978f-1946680e8d44" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/MatrixCalc/Linalg/Kramer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MatrixCalc/Linalg/KramerException.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MatrixCalc/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MatrixCalc/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.MatrixCalc/.idea/shelf/Uncommitted_changes_before_Update_at_10_31_20__6_50_PM__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MatrixCalc/.idea/shelf/Uncommitted_changes_before_Update_at_10_31_20__6_50_PM__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MatrixCalc/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MatrixCalc/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MatrixCalc/CommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/CommandHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MatrixCalc/Help.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Commands/Help.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MatrixCalc/Commands/Help.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Commands/Help.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MatrixCalc/Commands/SolveEquation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Commands/SolveEquation.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MatrixCalc/Linalg/Matrix.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Linalg/Matrix.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MatrixCalc/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MatrixCalc/Utils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixCalc/Utils.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,23 +58,26 @@
         <option value="$PROJECT_DIR$/MatrixCalc/Commands/MatrixList.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/Commands/DisplayDet.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/Commands/DisplayTrace.cs" />
-        <option value="$PROJECT_DIR$/MatrixCalc/Commands/MultiplyMatrix.cs" />
-        <option value="$PROJECT_DIR$/MatrixCalc/Commands/SumMatrix.cs" />
-        <option value="$PROJECT_DIR$/MatrixCalc/Commands/SubMatrix.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/Commands/MultiplyMatrixByNumber.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/Linalg/CellValueException.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/Commands/CreateMatrix.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/Commands/DisplayRank.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Utils.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/Commands/LoadFromFile.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/Commands/SaveToFile.cs" />
-        <option value="$PROJECT_DIR$/MatrixCalc/Help.cs" />
-        <option value="$PROJECT_DIR$/MatrixCalc/Utils.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/Program.cs" />
-        <option value="$PROJECT_DIR$/MatrixCalc/Linalg/Matrix.cs" />
-        <option value="$PROJECT_DIR$/MatrixCalc/Commands/SolveEquartion.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Commands/ChangeRandomBounds.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Help.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Commands/MultiplyMatrix.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Commands/SubMatrix.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Commands/SumMatrix.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Commands/TransposeMatrix.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/CommandHandler.cs" />
-        <option value="$PROJECT_DIR$/MatrixCalc/Commands/Help.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Linalg/KramerException.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Linalg/Kramer.cs" />
         <option value="$PROJECT_DIR$/MatrixCalc/Commands/SolveEquation.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Commands/Help.cs" />
+        <option value="$PROJECT_DIR$/MatrixCalc/Linalg/Matrix.cs" />
       </list>
     </option>
   </component>
@@ -131,17 +132,8 @@
       <workItem from="1603966202723" duration="4238000" />
       <workItem from="1604008932680" duration="27654000" />
       <workItem from="1604123658554" duration="9913000" />
-      <workItem from="1604129723638" duration="3263000" />
-      <workItem from="1604244815673" duration="2588000" />
+      <workItem from="1604331287048" duration="4011000" />
     </task>
-    <task id="LOCAL-00001" summary="twelvth commit">
-      <created>1604131717709</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1604131717709</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,30 +155,24 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="twelvth commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="twelvth commit" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1237" height="114" key="GridCell.Tab.0.bottom" timestamp="1604132891135">
-      <screen x="0" y="0" width="1280" height="720" />
+    <state width="1864" height="347" key="GridCell.Tab.0.bottom" timestamp="1604335373526">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1237" height="114" key="GridCell.Tab.0.bottom/0.0.1280.720@0.0.1280.720" timestamp="1604132891135" />
-    <state width="1864" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1604137535526" />
-    <state width="1237" height="114" key="GridCell.Tab.0.center" timestamp="1604132891134">
-      <screen x="0" y="0" width="1280" height="720" />
+    <state width="1864" height="347" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1604335373526" />
+    <state width="1864" height="347" key="GridCell.Tab.0.center" timestamp="1604335373523">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1237" height="114" key="GridCell.Tab.0.center/0.0.1280.720@0.0.1280.720" timestamp="1604132891134" />
-    <state width="1864" height="271" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1604137535523" />
-    <state width="1237" height="114" key="GridCell.Tab.0.left" timestamp="1604132891134">
-      <screen x="0" y="0" width="1280" height="720" />
+    <state width="1864" height="347" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1604335373523" />
+    <state width="1864" height="347" key="GridCell.Tab.0.left" timestamp="1604335373522">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1237" height="114" key="GridCell.Tab.0.left/0.0.1280.720@0.0.1280.720" timestamp="1604132891134" />
-    <state width="1864" height="271" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1604137535522" />
-    <state width="1237" height="114" key="GridCell.Tab.0.right" timestamp="1604132891135">
-      <screen x="0" y="0" width="1280" height="720" />
+    <state width="1864" height="347" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1604335373522" />
+    <state width="1864" height="347" key="GridCell.Tab.0.right" timestamp="1604335373525">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1237" height="114" key="GridCell.Tab.0.right/0.0.1280.720@0.0.1280.720" timestamp="1604132891135" />
-    <state width="1864" height="271" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1604137535525" />
+    <state width="1864" height="347" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1604335373525" />
     <state width="1864" height="369" key="GridCell.Tab.1.bottom" timestamp="1604099359372">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -251,27 +237,17 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1864" height="369" key="GridCell.Tab.4.right/0.0.1920.1080@0.0.1920.1080" timestamp="1604099359379" />
-    <state x="486" y="-123" width="333" height="552" key="RiderGenerateDialog" timestamp="1604255068752">
-      <screen x="0" y="0" width="1280" height="720" />
+    <state x="729" y="-247" width="452" height="827" key="RiderGenerateDialog" timestamp="1604161350454">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="486" y="-123" width="333" height="552" key="RiderGenerateDialog/0.0.1280.720@0.0.1280.720" timestamp="1604255068752" />
-    <state x="729" y="-185" width="452" height="827" key="RiderGenerateDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1604136100824" />
-    <state x="221" y="-11" width="914" height="707" key="SettingsEditor" timestamp="1604129837188">
-      <screen x="0" y="0" width="1280" height="720" />
+    <state x="729" y="-247" width="452" height="827" key="RiderGenerateDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1604161350454" />
+    <state x="332" y="-17" width="1256" height="913" key="SettingsEditor" timestamp="1604053795859">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="221" y="-11" width="914" height="707" key="SettingsEditor/0.0.1280.720@0.0.1280.720" timestamp="1604129837188" />
     <state x="332" y="-17" width="1256" height="913" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1604053795859" />
     <state x="960" y="-3" width="960" height="1083" key="VCS.FileHistoryDialog" timestamp="1604071857025">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="960" y="-3" width="960" height="1083" key="VCS.FileHistoryDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1604071857025" />
-    <state x="233" y="94" key="Vcs.Push.Dialog.v2" timestamp="1604131723109">
-      <screen x="0" y="0" width="1280" height="720" />
-    </state>
-    <state x="233" y="94" key="Vcs.Push.Dialog.v2/0.0.1280.720@0.0.1280.720" timestamp="1604131723109" />
-    <state x="458" y="275" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1604245134343">
-      <screen x="0" y="0" width="1280" height="720" />
-    </state>
-    <state x="458" y="275" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.720@0.0.1280.720" timestamp="1604245134343" />
   </component>
 </project>
